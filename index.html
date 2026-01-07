@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PENS</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <script src="script.js" defer></script>
+    <style>
+      .brand-logo {
+        display: block; /* ngilangin gap baseline */
+        height: 60px; /* pas untuk navbar */
+        width: auto; /* biar proporsional */
+        max-width: 220px; /* tetap ada batas */
+        object-fit: contain;
+      }
+
+      /* kalau mau lebih responsif di layar kecil */
+      @media (max-width: 1020px) {
+        .brand-logo {
+          height: 70px;
+          max-width: 180px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <header
+      class="navbar navbar-dark"
+      role="navigation"
+      aria-label="Navigasi utama PENS"
+    >
+      <div class="container">
+        <!-- Brand (SAMA SEPERTI AWAL) -->
+        <a class="brand" href="index.html#home" aria-label="Beranda PENS">
+          <img
+            src="https://raw.githubusercontent.com/dikaaaxyz/campusdesign/28a7c5d2991d49cb490698326f36f212ed20cd77/penss%20fix.png"
+            alt="logopens"
+            class="brand-logo"
+          />
+        </a>
+
+        <!-- Toggler -->
+        <button
+          class="navbar-toggler"
+          id="navbarToggler"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="sr-only">Buka / tutup menu</span>
+          <span class="toggler-icon"></span>
+        </button>
+
+        <!-- Collapse -->
+        <div class="navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#home">Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="akademik.html">Akademik</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="departemen.html">Departemen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="riset.html">Riset</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="mahasiswa.html">Mahasiswa</a>
+            </li>
+          </ul>
+
+          <!-- Search (TIDAK DIHILANGKAN) -->
+          <form class="navbar-search" role="search">
+            <label class="sr-only" for="navbarSearch">Cari</label>
+            <input
+              id="navbarSearch"
+              type="search"
+              placeholder="Cari prodi, riset, nilai..."
+              autocomplete="off"
+            />
+            <button type="submit">Cari</button>
+          </form>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO (mirip tugas 6) -->
+      <section class="hero-section" id="home">
+        <div class="hero-container reveal">
+          <h1 class="hero-title">Politeknik Elektronika Negeri Surabaya</h1>
+          <p class="hero-subtitle">
+            Kampus vokasi berbasis teknologi untuk mencetak inovasi dan talenta
+            siap industri.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn-hero" href="#about">Jelajahi Kampus</a>
+            <a class="btn-hero btn-ghost" href="#program">Lihat Program</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="page-section" id="about">
+        <div class="section-container">
+          <h2 class="section-title reveal">Tentang Kampus</h2>
+
+          <div class="about-grid">
+            <div class="about-media reveal">
+              <img
+                src="https://raw.githubusercontent.com/dikaaaxyz/campusdesign/fb9adcbe7d98aebd562f0aa8b95f4f7ea41a9b70/image-25.jpg"
+                alt="Gedung kampus"
+                loading="lazy"
+              />
+            </div>
+
+            <div class="about-content reveal">
+              <h3>Tentang PENS</h3>
+              <p>
+                PENS menekankan pembelajaran berbasis proyek, riset sains
+                terapan, dan kolaborasi dengan industri untuk membentuk talenta
+                inovatif dan siap bersaing di tingkat global.
+              </p>
+
+              <div class="accordion" data-accordion="single">
+                <!-- 1) Karakter PENS -->
+                <div class="acc-item is-open">
+                  <button
+                    class="acc-trigger"
+                    id="acc-btn-1"
+                    type="button"
+                    aria-controls="acc-panel-1"
+                    aria-expanded="true"
+                  >
+                    <span class="acc-left">
+                      <span class="acc-kicker">Karakter</span>
+                      <span class="acc-title">Karakter PENS</span>
+                    </span>
+
+                    <span class="acc-right">
+                      <span class="acc-chip">JOSS</span>
+                      <svg
+                        class="acc-icon"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M6 9l6 6 6-6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2.4"
+                        ></path>
+                      </svg>
+                    </span>
+                  </button>
+
+                  <div
+                    class="acc-panel"
+                    id="acc-panel-1"
+                    role="region"
+                    aria-labelledby="acc-btn-1"
+                  >
+                    <div class="acc-inner">
+                      <figure class="joss-figure">
+                        <img
+                          class="joss-img"
+                          alt="Slogan JOSS (dummy)"
+                          loading="lazy"
+                          src="https://raw.githubusercontent.com/dikaaaxyz/campusdesign/d0cc1fee04da9e274e91c4d346b27f65b9ddccc6/550234046_1458299752522463_7954848970300035343_n.png"
+                        />
+                        <figcaption class="muted">
+                          Slogan Karakter Pens <b>JOSS</b>. Sumber :
+                          <a href="https://pens.ac.id">pens.ac.id</a>
+                        </figcaption>
+                      </figure>
+
+                      <div class="pill-row" aria-label="Nilai karakter">
+                        <span class="pill-soft">Jujur</span>
+                        <span class="pill-soft">Orisinil</span>
+                        <span class="pill-soft">Semangat</span>
+                        <span class="pill-soft">Santun</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2) Visi & Misi -->
+                <div class="acc-item">
+                  <button
+                    class="acc-trigger"
+                    id="acc-btn-2"
+                    type="button"
+                    aria-controls="acc-panel-2"
+                    aria-expanded="false"
+                  >
+                    <span class="acc-left">
+                      <span class="acc-kicker">Profil</span>
+                      <span class="acc-title">Visi &amp; Misi PENS</span>
+                    </span>
+
+                    <span class="acc-right">
+                      <span class="acc-chip">Resmi</span>
+                      <svg
+                        class="acc-icon"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M6 9l6 6 6-6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2.4"
+                        ></path>
+                      </svg>
+                    </span>
+                  </button>
+
+                  <div
+                    class="acc-panel"
+                    id="acc-panel-2"
+                    role="region"
+                    aria-labelledby="acc-btn-2"
+                  >
+                    <div class="acc-inner">
+                      <div class="vm-grid">
+                        <div class="vm-block">
+                          <h4 class="vm-title">Visi</h4>
+                          <p class="vm-vision">
+                            Menjadi Perguruan Tinggi Teknopreneur Sains Terapan
+                            Berkelas Dunia.
+                          </p>
+                        </div>
+
+                        <div class="vm-block">
+                          <h4 class="vm-title">Misi</h4>
+                          <ul class="vm-list">
+                            <li>
+                              Pembelajaran berbasis proyek sains terapan untuk
+                              mengasah kemampuan teknis, kolaborasi tim,
+                              komunikasi, kreativitas, dan kepemimpinan.
+                            </li>
+                            <li>
+                              Pendidikan berkualitas berbasis laboratorium untuk
+                              membentuk lulusan yang mampu memecahkan masalah,
+                              profesional, berjiwa wirausaha, dan siap bersaing
+                              global.
+                            </li>
+                            <li>
+                              Riset sains terapan berbasis kemitraan untuk
+                              melahirkan teknologi/inovasi baru sebagai dasar
+                              pengabdian yang bermanfaat bagi masyarakat.
+                            </li>
+                            <li>
+                              Penguatan jejaring kerja sama dan sinergi
+                              pendidikan/penelitian menuju kewirausahaan
+                              berbasis teknologi dan pengembangan inovasi.
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <p class="note">
+                        Sumber:
+                        <a href="https://pens.ac.id/visimisi"
+                          >pens.ac.id/visimisi</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 3) Tujuan -->
+                <div class="acc-item">
+                  <button
+                    class="acc-trigger"
+                    id="acc-btn-3"
+                    type="button"
+                    aria-controls="acc-panel-3"
+                    aria-expanded="false"
+                  >
+                    <span class="acc-left">
+                      <span class="acc-kicker">Arah</span>
+                      <span class="acc-title">Tujuan PENS</span>
+                    </span>
+
+                    <span class="acc-right">
+                      <span class="acc-chip">Fokus</span>
+                      <svg
+                        class="acc-icon"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M6 9l6 6 6-6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2.4"
+                        ></path>
+                      </svg>
+                    </span>
+                  </button>
+
+                  <div
+                    class="acc-panel"
+                    id="acc-panel-3"
+                    role="region"
+                    aria-labelledby="acc-btn-3"
+                  >
+                    <div class="acc-inner">
+                      <ul class="vm-list">
+                        <li>
+                          Menyediakan pembelajaran yang berfokus pada
+                          proyek-proyek nyata sains terapan.
+                        </li>
+                        <li>
+                          Penguatan praktik laboratorium sains terapan agar
+                          keterampilan teknis mahasiswa berkembang lewat
+                          eksperimen dan penggunaan peralatan.
+                        </li>
+                        <li>
+                          Riset berbasis kemitraan dengan industri/masyarakat
+                          untuk menghasilkan teknologi yang dapat dipakai
+                          menyelesaikan masalah nyata.
+                        </li>
+                        <li>
+                          Membangun kemitraan erat dengan industri dan sektor
+                          bisnis untuk mendukung pengembangan teknologi dan
+                          inovasi.
+                        </li>
+                      </ul>
+
+                      <p class="note">
+                        Sumber:
+                        <a href="https://pens.ac.id/visimisi"
+                          >pens.ac.id/visimisi</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /accordion -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS (mirip tugas 6) -->
+      <section class="stats-section" aria-label="Prestasi Institusi">
+        <canvas class="stats-particles" aria-hidden="true"></canvas>
+        <div class="stats-orb orb-1" aria-hidden="true"></div>
+        <div class="stats-orb orb-2" aria-hidden="true"></div>
+        <div class="stats-orb orb-3" aria-hidden="true"></div>
+
+        <div class="section-container">
+          <h2 class="section-title2 reveal">Prestasi Instituti</h2>
+          <p class="stats-lead reveal">
+            Deretan capaian yang membuktikan kualitas, inovasi, dan konsistensi
+            PENS di tingkat nasional hingga internasional.
+          </p>
+
+          <div class="stats-grid">
+            <div class="stat-item reveal" data-fx="tilt confetti">
+              <div class="stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="28" height="28">
+                  <path
+                    d="M8 4h8v2h3a1 1 0 0 1 1 1c0 4.4-2.6 7-6 7a5 5 0 0 1-4 3.7V20h4v2H10v-2h4v-2.3A5 5 0 0 1 10 14c-3.4 0-6-2.6-6-7a1 1 0 0 1 1-1h3V4z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div class="stat-number">#1</div>
+              <div class="stat-label">
+                Politeknik di Asia Tenggara (Webometrics)
+              </div>
+            </div>
+
+            <div class="stat-item reveal" data-fx="tilt confetti">
+              <div class="stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="28" height="28">
+                  <path
+                    d="M12 2l2.2 6.6L21 9l-5.4 3.8L17.6 20 12 16.6 6.4 20l2-7.2L3 9l6.8-.4L12 2z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div class="stat-number">#1</div>
+              <div class="stat-label">
+                Kampus Inovasi di Indonesia (Scimago Institutions Ranking)
+              </div>
+            </div>
+
+            <div class="stat-item reveal" data-fx="tilt confetti">
+              <div class="stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="28" height="28">
+                  <path
+                    d="M12 7a4 4 0 0 1 4 4v2h1a2 2 0 0 1 2 2v1H5v-1a2 2 0 0 1 2-2h1v-2a4 4 0 0 1 4-4z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M9 7V5a3 3 0 0 1 6 0v2"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M8 18h8M10 22h4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <div class="stat-number">Rekor Muri</div>
+              <div class="stat-label">
+                Pemenang Kontes Robot Indonesia Terbanyak, 11 Kali
+                Berturut-turut (1993–2009)
+              </div>
+            </div>
+
+            <div class="stat-item reveal" data-fx="tilt confetti">
+              <div class="stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="28" height="28">
+                  <path
+                    d="M4 6h16v12H4z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M7 9h10M7 12h10M7 15h6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <div class="stat-number">14</div>
+              <div class="stat-label">Prodi yang menarik (S.Tr dan D3)</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEPARTEMEN -->
+      <section class="page-section page-section-alt" id="program">
+        <div class="section-container">
+          <h2 class="section-title reveal">Departemen di PENS</h2>
+          <p class="section-lead reveal">
+            PENS memiliki 4 departemen utama. Tiap departemen menaungi bidang
+            keilmuan terapan dengan fokus yang berbeda—mulai dari elektronika
+            &amp; telekomunikasi, teknologi informasi, mekatronika &amp; energi,
+            hingga industri kreatif multimedia.
+          </p>
+
+          <div class="card-grid card-grid-4">
+            <article class="content-card dept dte reveal">
+              <div class="card-badge">
+                <i class="bi bi-lightning-charge-fill" aria-hidden="true"></i
+                ><span>DTE</span>
+              </div>
+              <h3>Departemen Teknik Elektro</h3>
+              <p>
+                Berfokus pada rekayasa <strong>elektronika</strong>,
+                <strong>telekomunikasi</strong>, dan
+                <strong>elektro industri</strong> untuk menjawab kebutuhan
+                tenaga ahli di bidang teknologi terapan dan emerging technology.
+              </p>
+              <ul class="card-list">
+                <li>Elektronika &amp; embedded</li>
+                <li>Sistem telekomunikasi</li>
+                <li>Ketenagalistrikan industri</li>
+              </ul>
+              <a
+                class="card-source"
+                target="_blank"
+                rel="noopener"
+                href="https://www.pens.ac.id/departemen-teknik-elektro/"
+                >Sumber resmi
+                <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+              ></a>
+            </article>
+
+            <article class="content-card dept dtik reveal">
+              <div class="card-badge">
+                <i class="bi bi-code-slash" aria-hidden="true"></i
+                ><span>DTIK</span>
+              </div>
+              <h3>Departemen Teknik Informatika dan Komputer</h3>
+              <p>
+                Mengembangkan teknologi informasi dan rekayasa komputer untuk
+                menghasilkan lulusan yang siap bersaing di pasar global, dengan
+                cakupan <strong>informatika</strong>, <strong>komputer</strong>,
+                dan <strong>sains data terapan</strong>.
+              </p>
+              <ul class="card-list">
+                <li>Rekayasa perangkat lunak</li>
+                <li>Sistem &amp; jaringan komputer</li>
+                <li>AI, data, dan komputasi modern</li>
+              </ul>
+              <a
+                class="card-source"
+                target="_blank"
+                rel="noopener"
+                href="https://www.pens.ac.id/departemen-teknik-informatika-dan-komputer/"
+                >Sumber resmi
+                <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+              ></a>
+            </article>
+
+            <article class="content-card dept dtme reveal">
+              <div class="card-badge">
+                <i class="bi bi-gear-wide-connected" aria-hidden="true"></i
+                ><span>DTME</span>
+              </div>
+              <h3>Departemen Teknik Mekanika Energi</h3>
+              <p>
+                Menaungi bidang <strong>teknik mekatronika</strong> dan
+                <strong>sistem pembangkit energi</strong>: sinergi teknik mesin,
+                elektronika, informatika, dan kendali, serta studi solusi untuk
+                pengelolaan &amp; keberlanjutan energi.
+              </p>
+              <ul class="card-list">
+                <li>Robotika &amp; otomasi</li>
+                <li>Sistem kendali &amp; mekatronika</li>
+                <li>Pembangkit &amp; manajemen energi</li>
+              </ul>
+              <a
+                class="card-source"
+                target="_blank"
+                rel="noopener"
+                href="https://www.pens.ac.id/departemen-teknik-mekanika-energi/"
+                >Sumber resmi
+                <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+              ></a>
+            </article>
+
+            <article class="content-card dept dtmk reveal">
+              <div class="card-badge">
+                <i class="bi bi-camera-reels-fill" aria-hidden="true"></i
+                ><span>DTMK</span>
+              </div>
+              <h3>Departemen Teknologi Multimedia Kreatif</h3>
+              <p>
+                Berfokus pada pengembangan
+                <strong>teknologi multimedia</strong> untuk industri kreatif,
+                mencakup bidang produksi media digital dan
+                <strong>game</strong> (film, video, musik, fotografi, televisi,
+                radio, dan game).
+              </p>
+              <ul class="card-list">
+                <li>Broadcasting &amp; produksi konten</li>
+                <li>Teknologi game</li>
+                <li>Rekayasa multimedia</li>
+              </ul>
+              <a
+                class="card-source"
+                target="_blank"
+                rel="noopener"
+                href="https://www.pens.ac.id/departemen-teknologi-multimedia-kreatif/"
+                >Sumber resmi
+                <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+              ></a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- TABLE -->
+
+      <section class="page-section" id="jalur-pendaftaran">
+        <div class="section-container">
+          <h2 class="section-title reveal">Jalur Pendaftaran</h2>
+          <p class="muted reveal" style="max-width: 860px">
+            Ringkasan jalur penerimaan mahasiswa baru di PENS. Detail
+            persyaratan dan jadwal resmi bisa kamu cek langsung di
+            <a
+              class="table-link"
+              href="https://pmb.pens.ac.id/"
+              target="_blank"
+              rel="noopener"
+              >website PMB PENS</a
+            >.
+          </p>
+
+          <div
+            class="table-wrap reveal"
+            role="region"
+            tabindex="0"
+            aria-label="Tabel jalur pendaftaran"
+          >
+            <table class="pretty-table">
+              <thead>
+                <tr>
+                  <th>Jalur</th>
+                  <th>Fokus Seleksi</th>
+                  <th>Info & Jadwal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="pmb-jalur"
+                      ><img
+                        class="pmb-logo"
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMwRjM1NUMiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwRjM1NUMiIHN0b3Atb3BhY2l0eT0iMC44OCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiByeD0iMTQiIGZpbGw9InVybCgjZykiLz4KICA8dGV4dCB4PSIzMiIgeT0iMzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmZmZmZmIj5TTkJQPC90ZXh0Pgo8L3N2Zz4="
+                        alt="Logo SNBP"
+                        loading="lazy"
+                      /><strong>SNBP</strong></span
+                    >
+                  </td>
+                  <td>
+                    Seleksi nasional berbasis prestasi (rapor +
+                    portofolio/prestasi sesuai ketentuan).
+                  </td>
+                  <td>
+                    <div class="pmb-info">
+                      <span class="pill pill-good"
+                        >Pendaftaran 03–18 Feb 2026</span
+                      >
+                      <a
+                        class="table-action"
+                        href="https://pmb.pens.ac.id/index.php/snbp/"
+                        target="_blank"
+                        rel="noopener"
+                        ><span class="table-action__icon" aria-hidden="true"
+                          >↗</span
+                        ><span>Detail</span></a
+                      >
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="pmb-jalur"
+                      ><img
+                        class="pmb-logo"
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMwRjM1NUMiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwRjM1NUMiIHN0b3Atb3BhY2l0eT0iMC44OCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiByeD0iMTQiIGZpbGw9InVybCgjZykiLz4KICA8dGV4dCB4PSIzMiIgeT0iMzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmZmZmZmIj5TTkJUPC90ZXh0Pgo8L3N2Zz4="
+                        alt="Logo SNBT"
+                        loading="lazy"
+                      /><strong>SNBT</strong></span
+                    >
+                  </td>
+                  <td>
+                    Seleksi nasional berbasis tes (UTBK) untuk mengukur
+                    kemampuan kognitif, penalaran, dan potensi akademik.
+                  </td>
+                  <td>
+                    <div class="pmb-info">
+                      <span class="pill pill-ok"
+                        >Pendaftaran 25 Mar–07 Apr 2026</span
+                      >
+                      <a
+                        class="table-action"
+                        href="https://pmb.pens.ac.id/index.php/snbt/"
+                        target="_blank"
+                        rel="noopener"
+                        ><span class="table-action__icon" aria-hidden="true"
+                          >↗</span
+                        ><span>Detail</span></a
+                      >
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="pmb-jalur"
+                      ><img
+                        class="pmb-logo"
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMwRjM1NUMiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwRjM1NUMiIHN0b3Atb3BhY2l0eT0iMC44OCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiByeD0iMTQiIGZpbGw9InVybCgjZykiLz4KICA8dGV4dCB4PSIzMiIgeT0iMzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmZmZmZmIj5TSU08L3RleHQ+Cjwvc3ZnPg=="
+                        alt="Logo SIMANDIRI"
+                        loading="lazy"
+                      /><strong>SIMANDIRI</strong></span
+                    >
+                  </td>
+                  <td>
+                    Seleksi mandiri PENS (beberapa metode seleksi, termasuk UTBK
+                    SIMANDIRI online).
+                  </td>
+                  <td>
+                    <div class="pmb-info">
+                      <span class="pill">Cek jadwal gelombang terbaru</span>
+                      <a
+                        class="table-action"
+                        href="https://pmb.pens.ac.id/index.php/simandiri/"
+                        target="_blank"
+                        rel="noopener"
+                        ><span class="table-action__icon" aria-hidden="true"
+                          >↗</span
+                        ><span>Detail</span></a
+                      >
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="pmb-jalur"
+                      ><img
+                        class="pmb-logo"
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMwRjM1NUMiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwRjM1NUMiIHN0b3Atb3BhY2l0eT0iMC44OCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiByeD0iMTQiIGZpbGw9InVybCgjZykiLz4KICA8dGV4dCB4PSIzMiIgeT0iMzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmZmZmZmIj5SUEw8L3RleHQ+Cjwvc3ZnPg=="
+                        alt="Logo RPL / Lanjut Jenjang (D4)"
+                        loading="lazy"
+                      /><strong>RPL / Lanjut Jenjang (D4)</strong></span
+                    >
+                  </td>
+                  <td>
+                    Jalur untuk lulusan D3 yang melanjutkan ke Sarjana Terapan
+                    (D4) melalui rekognisi pembelajaran lampau (RPL).
+                  </td>
+                  <td>
+                    <div class="pmb-info">
+                      <span class="pill">Panduan & jadwal resmi</span>
+                      <a
+                        class="table-action"
+                        href="https://pmb.pens.ac.id/index.php/rpl-lj-str/"
+                        target="_blank"
+                        rel="noopener"
+                        ><span class="table-action__icon" aria-hidden="true"
+                          >↗</span
+                        ><span>Detail</span></a
+                      >
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="pmb-jalur"
+                      ><img
+                        class="pmb-logo"
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMwRjM1NUMiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwRjM1NUMiIHN0b3Atb3BhY2l0eT0iMC44OCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiByeD0iMTQiIGZpbGw9InVybCgjZykiLz4KICA8dGV4dCB4PSIzMiIgeT0iMzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmZmZmZmIj5QSko8L3RleHQ+Cjwvc3ZnPg=="
+                        alt="Logo PJJ"
+                        loading="lazy"
+                      /><strong>PJJ</strong></span
+                    >
+                  </td>
+                  <td>
+                    Program Pendidikan Jarak Jauh (PJJ) untuk prodi tertentu
+                    (mis. D3 PJJ Teknik Informatika & D4 PJJ Teknik
+                    Telekomunikasi).
+                  </td>
+                  <td>
+                    <div class="pmb-info">
+                      <span class="pill">Info pendaftaran PJJ</span>
+                      <a
+                        class="table-action"
+                        href="https://pmb.pens.ac.id/index.php/pjj/"
+                        target="_blank"
+                        rel="noopener"
+                        ><span class="table-action__icon" aria-hidden="true"
+                          >↗</span
+                        ><span>Detail</span></a
+                      >
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section class="page-section page-section-alt" id="gallery">
+        <div class="section-container">
+          <h2 class="section-title reveal">Galeri Umum</h2>
+
+          <div
+            class="gallery-slider reveal"
+            data-autoplay="true"
+            data-interval="5000"
+          >
+            <div
+              class="gs-viewport"
+              tabindex="0"
+              aria-label="Galeri, geser ke kanan/kiri"
+            >
+              <div class="gs-track">
+                <a
+                  class="gs-slide"
+                  href="mahasiswa.html"
+                  aria-label="Kegiatan mahasiswa"
+                >
+                  <img
+                    src="https://raw.githubusercontent.com/dikaaaxyz/campusdesign/fe66bfc70f61412a9832b3be794194ed81e7bddf/Tim-EFRISA-Divisi-TD-ESC-Sukses-Berikan-Performa-Terbaik-Melalui-Robot-ECOPENS-pada-KRTI-2021.png"
+                    alt="Kegiatan mahasiswa"
+                    loading="lazy"
+                  />
+                  <div class="gs-caption">
+                    <span class="gs-title">Kegiatan Mahasiswa</span>
+                    <span class="gs-sub">Klik untuk membuka</span>
+                  </div>
+                </a>
+
+                <a
+                  class="gs-slide"
+                  href="#"
+                  aria-label="Laboratorium"
+                >
+                  <img
+                    src="https://raw.githubusercontent.com/dikaaaxyz/campusdesign/8dfdf46c16efccd2ba1d9c46ad2c1fa405ad5622/lab-elka.jpg"
+                    alt="Laboratorium"
+                    loading="lazy"
+                  />
+                  <div class="gs-caption">
+                    <span class="gs-title">Laboratorium</span>
+                    <span class="gs-sub"> </span>
+                  </div>
+                </a>
+
+                <a
+                  class="gs-slide"
+                  href="https://perpustakaan.pens.ac.id/"
+                  aria-label="Perpustakaan"
+                >
+                  <img
+                    src="https://raw.githubusercontent.com/dikaaaxyz/campusdesign/b3d660daf42a67d119333bf00b9e2263115234bf/perpus-ps-1.jpeg"
+                    alt="Perpustakaan"
+                    loading="lazy"
+                  />
+                  <div class="gs-caption">
+                    <span class="gs-title">Perpustakaan</span>
+                    <span class="gs-sub">Klik untuk membuka</span>
+                  </div>
+                </a>
+
+                <a class="gs-slide" href="riset.html" aria-label="Aula">
+                  <img
+                    src="https://raw.githubusercontent.com/dikaaaxyz/campusdesign/5d0419ac3ba7b1ac0909edb2480bf5533d9a3fda/Picsart_23-06-17_10-20-02-278-1080x675.jpg"
+                    alt="Aula"
+                    loading="lazy"
+                  />
+                  <div class="gs-caption">
+                    <span class="gs-title">Riset</span>
+                    <span class="gs-sub">Klik untuk membuka</span>
+                  </div>
+                </a>
+
+                <a
+                  class="gs-slide"
+                  href="https://virtualtour.pens.ac.id/"
+                  aria-label="Ruang kelas"
+                >
+                  <img
+                    src="https://raw.githubusercontent.com/dikaaaxyz/campusdesign/793bc31088550924bee3d1836f44420da2598592/web-6.jpg"
+                    alt="Ruang kelas"
+                    loading="lazy"
+                  />
+                  <div class="gs-caption">
+                    <span class="gs-title">Ruang Kelas</span>
+                    <span class="gs-sub">Klik untuk membuka Virtual Tour</span>
+                  </div>
+                </a>
+
+                <a
+                  class="gs-slide"
+                  href="https://pico.pens.ac.id/category/student-exchange/"
+                  aria-label="Gedung kampus"
+                >
+                  <img
+                    src="https://raw.githubusercontent.com/dikaaaxyz/campusdesign/09c17ba4ba3dc794cdbf879a3da559d457bde37d/image-2-1024x518.png"
+                    alt="Gedung Kampus"
+                    loading="lazy"
+                  />
+                  <div class="gs-caption">
+                    <span class="gs-title">PICO PENS</span>
+                    <span class="gs-sub">Klik untuk membuka</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <button
+              class="gs-nav gs-prev"
+              type="button"
+              aria-label="Slide sebelumnya"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path
+                  d="M15 18l-6-6 6-6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                ></path>
+              </svg>
+            </button>
+
+            <button
+              class="gs-nav gs-next"
+              type="button"
+              aria-label="Slide berikutnya"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path
+                  d="M9 6l6 6-6 6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                ></path>
+              </svg>
+            </button>
+
+            <div class="gs-dots" aria-label="Navigasi slide"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="site-footer" id="contact">
+        <div class="section-container footer-grid">
+          <div class="footer-col footer-brand">
+            <h3>PENS</h3>
+            <p class="footer-desc">
+              Politeknik Elektronika Negeri Surabaya (PENS) adalah kampus vokasi
+              berbasis teknologi yang berfokus pada pengembangan talenta dan
+              inovasi.
+            </p>
+            <p class="footer-meta">
+              <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+              <span>Jl. Raya ITS, Keputih, Sukolilo, Surabaya 60111</span>
+            </p>
+
+            <div class="footer-pills">
+              <a
+                class="footer-pill"
+                href="https://pens.ac.id"
+                target="_blank"
+                rel="noopener"
+              >
+                <i class="bi bi-globe2" aria-hidden="true"></i> Website Resmi
+              </a>
+              <a
+                class="footer-pill"
+                href="https://pmb.pens.ac.id"
+                target="_blank"
+                rel="noopener"
+              >
+                <i class="bi bi-mortarboard-fill" aria-hidden="true"></i> PMB
+                PENS
+              </a>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h4>Navigasi</h4>
+            <ul>
+              <li><a href="#home">Beranda</a></li>
+              <li><a href="#about">Tentang</a></li>
+              <li><a href="#program">Departemen</a></li>
+              <li><a href="#jalur-pendaftaran">Jalur Pendaftaran</a></li>
+              <li><a href="#gallery">Galeri</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Tautan Penting</h4>
+            <ul>
+              <li>
+                <a href="https://pmb.pens.ac.id" target="_blank" rel="noopener"
+                  >Info & Pengumuman PMB</a
+                >
+              </li>
+              <li>
+                <a href="https://pens.ac.id" target="_blank" rel="noopener"
+                  >Berita & Update Kampus</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://snpmb.bppp.kemdikbud.go.id/"
+                  target="_blank"
+                  rel="noopener"
+                  >Portal Resmi SNPMB</a
+                >
+              </li>
+            </ul>
+
+            <div class="footer-help">
+              <h4 class="footer-help__title">Butuh bantuan?</h4>
+              <p class="footer-help__text">
+                Klik ikon kontak di kanan bawah untuk menghubungi contact person
+                & grup SUFI.
+              </p>
+              <a
+                class="footer-pill footer-pill--ghost"
+                href="#!"
+                data-open-contact
+              >
+                <i class="bi bi-chat-dots-fill" aria-hidden="true"></i> Buka
+                Kontak
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div class="section-container footer-bottom-inner">
+            <small>©2026 SUFI PENS 25. Semua Hak Dilindungi.</small>
+            <small class="footer-bottom-links"
+              ><a href="#home">Kembali ke atas</a></small
+            >
+          </div>
+        </div>
+      </footer>
+    </main>
+    <!-- CONTACT FAB (Floating Contact) -->
+    <div class="contact-fab" id="contactFabWrap">
+      <button
+        class="contact-fab__btn"
+        id="contactFab"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="contactPanel"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Kontak pertanyaan lebih lanjut</span>
+        <i class="bi bi-chat-dots-fill" aria-hidden="true"></i>
+      </button>
+
+      <div
+        class="contact-panel"
+        id="contactPanel"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-label="Kontak pertanyaan lebih lanjut"
+      >
+        <div class="contact-panel__header">
+          <div>
+            <div class="contact-panel__title">Kontak</div>
+            <div class="contact-panel__subtitle">Contact Person</div>
+          </div>
+
+          <button
+            class="contact-panel__close"
+            id="contactPanelClose"
+            type="button"
+            aria-label="Tutup"
+          >
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="contact-panel__body">
+          <a
+            class="contact-link contact-link--muted"
+            target="_blank"
+            rel="noopener"
+            href="https://padlet.com/fryola15/SUFI_PENS_2025"
+            data-contact-person="4"
+          >
+            <span class="contact-link__icon" aria-hidden="true"
+              ><i class="bi bi-person-lines-fill"></i
+            ></span>
+            <span class="contact-link__text">
+              <span class="contact-link__label">FAQ & Tanya Jawab</span>
+              <span class="contact-link__meta"></span>
+            </span>
+          </a>
+
+          <div class="contact-sep" role="separator" aria-hidden="true"></div>
+
+          <a
+            class="contact-link contact-link--group"
+            target="_blank"
+            rel="noopener"
+            href="https://wa.me/"
+            data-sufi-group
+          >
+            <span class="contact-link__icon" aria-hidden="true"
+              ><i class="bi bi-people-fill"></i
+            ></span>
+            <span class="contact-link__text">
+              <span class="contact-link__label">Grup SUFI</span>
+              <span class="contact-link__meta"></span>
+            </span>
+            <span class="contact-link__arrow" aria-hidden="true"
+              ><i class="bi bi-box-arrow-up-right"></i
+            ></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

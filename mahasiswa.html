@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mahasiswa - PENS</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <script defer src="script.js"></script>
+
+    <style>
+      /* Page-only additions (tidak mengganggu style.css utama) */
+      .page-note {
+        max-width: 980px;
+        margin: 18px auto 0;
+        padding: 0 16px;
+      }
+      .page-note .content-card {
+        padding: 16px 18px;
+      }
+      .activity-tools {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-top: 14px;
+      }
+      .activity-search {
+        flex: 1 1 260px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding: 10px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+      }
+      .activity-search input {
+        width: 100%;
+        background: transparent;
+        border: 0;
+        outline: none;
+        color: inherit;
+        font-size: 14px;
+      }
+      .activity-search i {
+        opacity: 0.9;
+      }
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .filter-btn {
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .filter-btn.active {
+        border-color: rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.14);
+      }
+      .card-sources {
+        margin-top: 14px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .card-list {
+        margin: 10px 0 0;
+        padding-left: 18px;
+      }
+      .card-list li {
+        margin: 6px 0;
+      }
+      .toc-row {
+        margin-top: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .toc-row a {
+        text-decoration: none;
+      }
+      .soft-note {
+        margin-top: 10px;
+        opacity: 0.95;
+      }
+      .section-lead {
+        margin-top: 8px;
+        opacity: 0.92;
+        line-height: 1.6;
+      }
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 16px;
+      }
+      .mini-grid .content-card {
+        padding: 14px 14px;
+      }
+      .mini-grid .stat-value {
+        font-size: 28px;
+      }
+      @media (max-width: 900px) {
+        .mini-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 520px) {
+        .mini-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Mini summary cards in HERO (override warna biar kebaca di kartu putih) */
+      .hero-section .mini-grid .content-card {
+        text-align: left;
+        color: #0f2f4f;
+        background: rgba(255, 255, 255, 0.95);
+      }
+      .hero-section .mini-grid .stat-value {
+        color: #0f2f4f;
+      }
+      .hero-section .mini-grid .stat-label {
+        color: rgba(16, 42, 67, 0.88);
+        font-weight: 800;
+      }
+      .hero-section .mini-grid .soft-note {
+        color: rgba(16, 42, 67, 0.7);
+        opacity: 1;
+      }
+      /* HERO: pill-soft (filter + navigasi cepat) biar kontras */
+      .hero-section .pill-soft {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.18);
+        color: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(10px);
+        transition: transform 160ms ease, background 160ms ease,
+          border-color 160ms ease;
+      }
+      .hero-section .pill-soft:hover {
+        transform: translateY(-1px);
+        background: rgba(255, 255, 255, 0.14);
+        border-color: rgba(255, 255, 255, 0.28);
+      }
+
+      .hero-section .filter-btn {
+        border-color: rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .hero-section .filter-btn.active {
+        border-color: rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      .hero-section .activity-search {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+      .hero-section .activity-search input::placeholder {
+        color: rgba(255, 255, 255, 0.72);
+      }
+      .brand-logo {
+        display: block; /* ngilangin gap baseline */
+        height: 60px; /* pas untuk navbar */
+        width: auto; /* biar proporsional */
+        max-width: 220px; /* tetap ada batas */
+        object-fit: contain;
+      }
+
+      /* kalau mau lebih responsif di layar kecil */
+      @media (max-width: 1020px) {
+        .brand-logo {
+          height: 70px;
+          max-width: 180px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a class="sr-only" href="#konten">Lewati ke konten</a>
+
+    <!-- NAVBAR -->
+    <header
+      class="navbar navbar-dark"
+      role="navigation"
+      aria-label="Navigasi utama PENS"
+    >
+      <div class="container">
+        <!-- Brand (SAMA SEPERTI AWAL) -->
+        <a class="brand" href="index.html#home" aria-label="Beranda PENS">
+          <img
+            src="https://raw.githubusercontent.com/dikaaaxyz/campusdesign/28a7c5d2991d49cb490698326f36f212ed20cd77/penss%20fix.png"
+            alt="logopens"
+            class="brand-logo"
+          />
+        </a>
+
+        <!-- Toggler -->
+        <button
+          class="navbar-toggler"
+          id="navbarToggler"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="sr-only">Buka / tutup menu</span>
+          <span class="toggler-icon"></span>
+        </button>
+
+        <!-- Collapse -->
+        <div class="navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#home">Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="akademik.html">Akademik</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#program">Departemen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="riset.html">Riset</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                href="mahasiswa.html"
+                aria-current="page"
+                >Mahasiswa</a
+              >
+            </li>
+          </ul>
+
+          <!-- Search (TIDAK DIHILANGKAN) -->
+          <form class="navbar-search" role="search">
+            <label class="sr-only" for="navbarSearch">Cari</label>
+            <input
+              id="navbarSearch"
+              type="search"
+              placeholder="Cari UKM, HIMA, BEM..."
+              autocomplete="off"
+            />
+            <button type="submit">Cari</button>
+          </form>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section
+      class="hero-section"
+      id="konten"
+      aria-label="Kehidupan mahasiswa PENS"
+    >
+      <div class="hero-container">
+        <div class="hero-content reveal">
+          <p class="hero-kicker">Kehidupan Mahasiswa</p>
+          <h1 class="hero-title">
+            Semua kegiatan mahasiswa di <span class="brand-accent">PENS</span>,
+            terkelompok rapi
+          </h1>
+          <p class="hero-subtitle">
+            Mulai dari <b>Organisasi</b> (BEM, DPM, DKM, LMB, kerohanian),
+            <b>Himpunan Mahasiswa</b>, <b>UKM</b>, <b>Komunitas Resmi</b>,
+            sampai <b>program prestasi & kewirausahaan</b>.
+          </p>
+
+          <div class="activity-tools" aria-label="Pencarian dan filter">
+            <div class="activity-search" role="search">
+              <i class="bi bi-search" aria-hidden="true"></i>
+              <label class="sr-only" for="activitySearch">Cari kegiatan</label>
+              <input
+                id="activitySearch"
+                type="search"
+                placeholder="Cari: BEM, futsal, E2C, PKM, robotika..."
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="filter-row" aria-label="Filter kategori">
+              <button
+                class="pill-soft filter-btn active"
+                type="button"
+                data-filter="all"
+              >
+                Semua
+              </button>
+              <button
+                class="pill-soft filter-btn"
+                type="button"
+                data-filter="organisasi"
+              >
+                Organisasi
+              </button>
+              <button
+                class="pill-soft filter-btn"
+                type="button"
+                data-filter="hima"
+              >
+                HIMA
+              </button>
+              <button
+                class="pill-soft filter-btn"
+                type="button"
+                data-filter="ukm"
+              >
+                UKM
+              </button>
+              <button
+                class="pill-soft filter-btn"
+                type="button"
+                data-filter="komunitas"
+              >
+                Komunitas
+              </button>
+              <button
+                class="pill-soft filter-btn"
+                type="button"
+                data-filter="prestasi"
+              >
+                Program Prestasi
+              </button>
+              <button
+                class="pill-soft filter-btn"
+                type="button"
+                data-filter="event"
+              >
+                Event
+              </button>
+            </div>
+          </div>
+
+          <div class="toc-row" aria-label="Navigasi cepat">
+            <a class="pill-soft" href="#organisasi"
+              ><i class="bi bi-building" aria-hidden="true"></i> Organisasi</a
+            >
+            <a class="pill-soft" href="#hima"
+              ><i class="bi bi-diagram-3" aria-hidden="true"></i> HIMA</a
+            >
+            <a class="pill-soft" href="#ukm"
+              ><i class="bi bi-trophy" aria-hidden="true"></i> UKM</a
+            >
+            <a class="pill-soft" href="#komunitas"
+              ><i class="bi bi-people" aria-hidden="true"></i> Komunitas</a
+            >
+            <a class="pill-soft" href="#prestasi"
+              ><i class="bi bi-rocket-takeoff" aria-hidden="true"></i>
+              Prestasi</a
+            >
+            <a class="pill-soft" href="#event"
+              ><i class="bi bi-calendar-event" aria-hidden="true"></i> Event</a
+            >
+            <a class="pill-soft" href="#gabung"
+              ><i class="bi bi-person-plus" aria-hidden="true"></i> Cara
+              Gabung</a
+            >
+          </div>
+
+          <div class="mini-grid" aria-label="Ringkasan jumlah">
+            <div class="content-card">
+              <div class="stat-value">6</div>
+              <div class="stat-label">Organisasi Mahasiswa (Ormawa)</div>
+              <div class="soft-note">BEM, DPM, DKM, LMB, UKKI, UK3</div>
+            </div>
+            <div class="content-card">
+              <div class="stat-value">8</div>
+              <div class="stat-label">Himpunan Mahasiswa</div>
+              <div class="soft-note">Per prodi (Elektronika, TI, dsb.)</div>
+            </div>
+            <div class="content-card">
+              <div class="stat-value">9</div>
+              <div class="stat-label">UKM Utama</div>
+              <div class="soft-note">Olahraga, seni, media/jurnalistik</div>
+            </div>
+            <div class="content-card">
+              <div class="stat-value">10+</div>
+              <div class="stat-label">Program Prestasi & Wirausaha</div>
+              <div class="soft-note">PKM, GEMASTIK, KMI Expo, PMW, dll.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-note">
+      <div class="content-card reveal">
+        <p style="margin: 0">
+          <i class="bi bi-info-circle" aria-hidden="true"></i>
+          <b>Catatan:</b> Daftar ini merangkum kanal resmi Kemahasiswaan PENS +
+          beberapa komunitas yang aktif/terdokumentasi. Karena organisasi dapat
+          berubah tiap periode, cek juga pengumuman Open Recruitment & MBEX.
+          <span class="muted">Terakhir diperbarui: 6 Januari 2026.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ORGANISASI -->
+    <section class="page-section" id="organisasi">
+      <div class="section-container reveal">
+        <h2 class="section-title">Organisasi Kemahasiswaan</h2>
+        <p class="section-lead">
+          Struktur organisasi mahasiswa PENS (Ormawa) yang mengelola kegiatan
+          kemahasiswaan lintas prodi: eksekutif, perwakilan, yudikatif,
+          minat-bakat, dan kerohanian.
+        </p>
+
+        <div class="card-grid">
+          <article
+            class="content-card activity-card"
+            data-type="organisasi"
+            data-search="BEM Badan Eksekutif Mahasiswa kabinet kementerian KESMA KOMINFO RISTEK"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-briefcase" aria-hidden="true"></i>
+              Eksekutif</span
+            >
+            <h3 class="card-title">BEM PENS</h3>
+            <p>
+              Lembaga eksekutif mahasiswa tingkat institusi yang menjalankan
+              program kerja melalui kementerian/ bidang.
+            </p>
+            <ul class="card-list">
+              <li>Koordinasi program kemahasiswaan lintas prodi & UKM</li>
+              <li>Advokasi/aspirasi, PSDM, KESMA, KOMINFO, RISTEK, dll.</li>
+              <li>Periode kepengurusan umumnya 1 tahun</li>
+            </ul>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/bem/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="organisasi"
+            data-search="DPM Dewan Perwakilan Mahasiswa legislatif komisi aspirasi garis besar program"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-bank" aria-hidden="true"></i> Perwakilan</span
+            >
+            <h3 class="card-title">DPM PENS</h3>
+            <p>
+              Perwakilan mahasiswa untuk menampung dan menyalurkan aspirasi,
+              serta menetapkan garis-garis program kegiatan kemahasiswaan.
+            </p>
+            <ul class="card-list">
+              <li>
+                Komisi Internal & Advokasi, Eksternal & Sosial, Pendidikan &
+                Riset, PSDM & Kewirausahaan
+              </li>
+              <li>Pengawasan & sinergi dengan elemen KM PENS</li>
+            </ul>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/dpm/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="organisasi"
+            data-search="DKM Dewan Konstitusi Mahasiswa yudikatif peradilan UUD KM PENS penelitian hukum"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-shield-check" aria-hidden="true"></i>
+              Yudikatif</span
+            >
+            <h3 class="card-title">DKM PENS</h3>
+            <p>
+              Badan yudikatif tertinggi di KM PENS untuk fungsi peradilan
+              berdasarkan UUD KM PENS.
+            </p>
+            <ul class="card-list">
+              <li>Bidang Internal (administrasi/keuangan & informasi)</li>
+              <li>Bidang Kepaniteraan (dukungan persidangan)</li>
+              <li>
+                Bidang Penelitian Hukum (kajian aturan & kesadaran
+                berkonstitusi)
+              </li>
+            </ul>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/dkm/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="organisasi"
+            data-search="LMB Lembaga Minat Bakat menaungi UKM PENSCOMP kompetisi olahraga seni malam keakraban"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-stars" aria-hidden="true"></i> Minat &
+              Bakat</span
+            >
+            <h3 class="card-title">LMB PENS</h3>
+            <p>
+              Lembaga yang menaungi UKM dan pengembangan minat-bakat mahasiswa
+              PENS.
+            </p>
+            <ul class="card-list">
+              <li>Mengembangkan potensi & SDM UKM</li>
+              <li>Koordinasi internal/eksternal minat-bakat</li>
+              <li>Program: <b>PENSCOMP</b>, Malam Keakraban UKM, dll.</li>
+            </ul>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/lmb/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+              <a
+                class="card-source"
+                href="https://linktr.ee/lmbpens"
+                target="_blank"
+                rel="noopener"
+                >Linktree (jika tersedia)</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="organisasi"
+            data-search="UKKI Unit Kegiatan Kerohanian Islam dakwah kajian mentoring ukkipens telegram youtube instagram"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-moon-stars" aria-hidden="true"></i>
+              Kerohanian</span
+            >
+            <h3 class="card-title">UKKI PENS</h3>
+            <p>
+              Unit kegiatan kerohanian Islam (LDK) yang mewadahi pembinaan,
+              kajian, dan kegiatan dakwah kampus.
+            </p>
+            <ul class="card-list">
+              <li>
+                Kajian/mentoring, kegiatan sosial, serta pengembangan soft
+                skills
+              </li>
+              <li>Informasi kegiatan biasanya lewat kanal media resmi</li>
+            </ul>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://t.me/ukkipens"
+                target="_blank"
+                rel="noopener"
+                >Telegram</a
+              >
+              <a
+                class="card-source"
+                href="https://www.youtube.com/UKKIPENS"
+                target="_blank"
+                rel="noopener"
+                >YouTube</a
+              >
+              <a
+                class="card-source"
+                href="https://www.instagram.com/ukkipens/"
+                target="_blank"
+                rel="noopener"
+                >Instagram</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="organisasi"
+            data-search="UK3 Unit Kegiatan Kristen Katolik kerohanian ibadah pelayanan kasih UK3 PENS"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-heart" aria-hidden="true"></i> Kerohanian</span
+            >
+            <h3 class="card-title">UK3 PENS</h3>
+            <p>
+              Unit kegiatan kerohanian Kristen–Katolik sebagai wadah ibadah,
+              pembinaan iman, dan persaudaraan.
+            </p>
+            <ul class="card-list">
+              <li>
+                Persekutuan/ibadah, kegiatan pelayanan, serta perayaan hari
+                besar
+              </li>
+            </ul>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/uk3/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+              <a
+                class="card-source"
+                href="https://www.youtube.com/channel/UCZq6u4DIpwnWhRg9SqhxIew"
+                target="_blank"
+                rel="noopener"
+                >YouTube</a
+              >
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HIMA -->
+    <section class="page-section" id="hima">
+      <div class="section-container reveal">
+        <h2 class="section-title">Himpunan Mahasiswa</h2>
+        <p class="section-lead">
+          HIMA adalah organisasi di tingkat program studi/keilmuan yang
+          mengelola kegiatan akademik, lomba, kaderisasi, hingga pengabdian
+          masyarakat. Biasanya menjadi “rumah” utama mahasiswa per prodi.
+        </p>
+
+        <div class="card-grid card-grid-4">
+          <article
+            class="content-card activity-card"
+            data-type="hima"
+            data-search="HIMA Elektronika himaelka elka"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-cpu" aria-hidden="true"></i> HIMA</span
+            >
+            <h3 class="card-title">HIMA Elektronika</h3>
+            <p>
+              Komunitas mahasiswa bidang elektronika: akademik, event prodi, dan
+              kaderisasi.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://himaelka.pens.ac.id/"
+                target="_blank"
+                rel="noopener"
+                >Website</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="hima"
+            data-search="HIMA Telekomunikasi himatel telkom"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-broadcast" aria-hidden="true"></i> HIMA</span
+            >
+            <h3 class="card-title">HIMA Telekomunikasi</h3>
+            <p>
+              Kegiatan kemahasiswaan bidang telekomunikasi: akademik, lomba, dan
+              sosial.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://himatel.pens.ac.id/"
+                target="_blank"
+                rel="noopener"
+                >Website</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="hima"
+            data-search="HIMA Elektro Industri himaelin elin"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-lightning-charge" aria-hidden="true"></i>
+              HIMA</span
+            >
+            <h3 class="card-title">HIMA Elektro Industri</h3>
+            <p>
+              Wadah mahasiswa elektro industri: pengembangan skill, event, dan
+              prestasi.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://himaelin.pens.ac.id/"
+                target="_blank"
+                rel="noopener"
+                >Website</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="hima"
+            data-search="HIMA Teknik Informatika himit TI informatika"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-code-slash" aria-hidden="true"></i> HIMA</span
+            >
+            <h3 class="card-title">HIMA Teknik Informatika</h3>
+            <p>
+              Wadah mahasiswa TI: learning circle, lomba, seminar, dan
+              kaderisasi.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://himit.pens.ac.id/"
+                target="_blank"
+                rel="noopener"
+                >Website</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="hima"
+            data-search="HIMA Mekatronika himameka mekatronika"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-gear" aria-hidden="true"></i> HIMA</span
+            >
+            <h3 class="card-title">HIMA Mekatronika</h3>
+            <p>Bidang mekatronika: project, lomba, dan pengembangan anggota.</p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://himameka.pens.ac.id/"
+                target="_blank"
+                rel="noopener"
+                >Website</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="hima"
+            data-search="HIMA Computer Engineering hmce"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-motherboard" aria-hidden="true"></i> HIMA</span
+            >
+            <h3 class="card-title">HIMA Computer Engineering</h3>
+            <p>
+              Wadah mahasiswa Computer Engineering: akademik, kompetisi, dan
+              komunitas.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://hmce.pens.ac.id/"
+                target="_blank"
+                rel="noopener"
+                >Website</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="hima"
+            data-search="HIMA Multimedia Broadcasting mmb"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-camera-video" aria-hidden="true"></i> HIMA</span
+            >
+            <h3 class="card-title">HIMA Multimedia Broadcasting</h3>
+            <p>
+              Kegiatan kreatif & media: produksi konten, event prodi, dan
+              kolaborasi.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://mmb.pens.ac.id/"
+                target="_blank"
+                rel="noopener"
+                >Website</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="hima"
+            data-search="HIMA Energi himaenergi"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-wind" aria-hidden="true"></i> HIMA</span
+            >
+            <h3 class="card-title">HIMA Energi</h3>
+            <p>
+              Wadah mahasiswa bidang energi: riset, lomba, dan pengembangan
+              minat.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://himaenergi.pens.ac.id/"
+                target="_blank"
+                rel="noopener"
+                >Website</a
+              >
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- UKM -->
+    <section class="page-section" id="ukm">
+      <div class="section-container reveal">
+        <h2 class="section-title">Unit Kegiatan Mahasiswa</h2>
+        <p class="section-lead">
+          UKM adalah wadah ekstrakurikuler untuk mengembangkan soft skills,
+          sportivitas, seni, dan karya. Di PENS, UKM utama berikut banyak
+          berkolaborasi di event kampus dan mengikuti kompetisi.
+        </p>
+
+        <h3 class="section-subtitle">Olahraga</h3>
+        <div class="card-grid">
+          <article
+            class="content-card activity-card"
+            data-type="ukm"
+            data-search="UKM Futsal futsal latihan turnamen"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-dribbble" aria-hidden="true"></i> UKM</span
+            >
+            <h3 class="card-title">UKM Futsal</h3>
+            <p>
+              Latihan rutin, sparing, dan partisipasi turnamen futsal antar
+              kampus/instansi.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/futsal/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="ukm"
+            data-search="UKM Volly voli latihan kompetisi"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-trophy" aria-hidden="true"></i> UKM</span
+            >
+            <h3 class="card-title">UKM Volly</h3>
+            <p>Latihan, pengembangan teknik, dan kompetisi voli.</p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/volly/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="ukm"
+            data-search="UKM Basket basket latihan kompetisi"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-balloon" aria-hidden="true"></i> UKM</span
+            >
+            <h3 class="card-title">UKM Basket</h3>
+            <p>Latihan tim, scrimmage, dan kejuaraan basket.</p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/basket/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="ukm"
+            data-search="UKM Badminton bulutangkis latihan"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-shuffle" aria-hidden="true"></i> UKM</span
+            >
+            <h3 class="card-title">UKM Badminton</h3>
+            <p>Latihan teknik, sparing, dan kompetisi bulu tangkis.</p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/badminton/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="ukm"
+            data-search="UKM Tenis Meja pingpong"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-circle" aria-hidden="true"></i> UKM</span
+            >
+            <h3 class="card-title">UKM Tenis Meja</h3>
+            <p>Latihan rutin, teknik, dan turnamen tenis meja.</p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/tenis-meja/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="ukm"
+            data-search="UKM Taekwondo beladiri"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-lightning" aria-hidden="true"></i> UKM</span
+            >
+            <h3 class="card-title">UKM Taekwondo</h3>
+            <p>Latihan bela diri, ujian tingkat, dan kompetisi taekwondo.</p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/taekwondo/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+            </div>
+          </article>
+        </div>
+
+        <h3 class="section-subtitle">Seni & Budaya</h3>
+        <div class="card-grid">
+          <article
+            class="content-card activity-card"
+            data-type="ukm"
+            data-search="UKM Tari dance pentas"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-music-note-beamed" aria-hidden="true"></i>
+              UKM</span
+            >
+            <h3 class="card-title">UKM Tari</h3>
+            <p>
+              Latihan tari tradisional & modern, tampil di acara kampus, dan
+              kompetisi.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/tari/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="ukm"
+            data-search="UKM Musik band paduan"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-headphones" aria-hidden="true"></i> UKM</span
+            >
+            <h3 class="card-title">UKM Musik</h3>
+            <p>Band/ensemble, latihan rutin, dan tampil di event kampus.</p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/musik/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+            </div>
+          </article>
+        </div>
+
+        <h3 class="section-subtitle">Media & Komunikasi</h3>
+        <div class="card-grid">
+          <article
+            class="content-card activity-card"
+            data-type="ukm"
+            data-search="UKM ENT jurnalistik media dokumentasi EEPIS News and Network Team"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-newspaper" aria-hidden="true"></i> UKM</span
+            >
+            <h3 class="card-title">UKM ENT (Jurnalistik)</h3>
+            <p>
+              Wadah apresiasi minat jurnalistik & media (konten internal,
+              medsos, dokumentasi event, dan kompetisi).
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/ent/"
+                target="_blank"
+                rel="noopener"
+                >Info resmi</a
+              >
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- KOMUNITAS -->
+    <section class="page-section" id="komunitas">
+      <div class="section-container reveal">
+        <h2 class="section-title">Komunitas Resmi & Komunitas Aktif</h2>
+        <p class="section-lead">
+          Selain UKM/Ormawa, PENS juga punya komunitas yang sering jadi tempat
+          belajar bareng, latihan, dan produksi karya. Sebagian bersifat
+          komunitas minat-bakat, sebagian berbasis keilmuan/kreatif.
+        </p>
+
+        <div class="card-grid">
+          <article
+            class="content-card activity-card"
+            data-type="komunitas"
+            data-search="E2C EEPIS English Community english debate speech storytelling news casting e2cpens"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-chat-dots" aria-hidden="true"></i> Bahasa</span
+            >
+            <h3 class="card-title">EEPIS English Community (E2C)</h3>
+            <p>
+              Komunitas pecinta bahasa Inggris: latihan, mentoring, event, dan
+              kompetisi (debate/speech/storytelling).
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://www.instagram.com/e2cpens/"
+                target="_blank"
+                rel="noopener"
+                >Instagram</a
+              >
+              <a
+                class="card-source"
+                href="https://www.youtube.com/@eepisenglishcommunity771"
+                target="_blank"
+                rel="noopener"
+                >YouTube</a
+              >
+              <a
+                class="card-source"
+                href="https://linktr.ee/EngineeringEnglishClub2025"
+                target="_blank"
+                rel="noopener"
+                >OR / Registrasi</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="komunitas"
+            data-search="FRENS Fotografi PENS fotografi kamera hunting foto"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-camera" aria-hidden="true"></i> Kreatif</span
+            >
+            <h3 class="card-title">FRENS (Fotografi PENS)</h3>
+            <p>
+              Komunitas fotografi: hunting, workshop, liputan, dan pameran
+              karya.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://fotografipens.weebly.com/"
+                target="_blank"
+                rel="noopener"
+                >Website</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="komunitas"
+            data-search="PSM PENS Paduan Suara Mahasiswa choir latihan lomba"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-mic" aria-hidden="true"></i> Seni</span
+            >
+            <h3 class="card-title">PSM PENS (Paduan Suara)</h3>
+            <p>
+              Latihan paduan suara, tampil di acara kampus, dan mengikuti
+              kompetisi paduan suara.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://www.instagram.com/psmpens/"
+                target="_blank"
+                rel="noopener"
+                >Instagram</a
+              >
+              <a
+                class="card-source"
+                href="https://www.youtube.com/@psmpens"
+                target="_blank"
+                rel="noopener"
+                >YouTube</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="komunitas"
+            data-search="JANAKA PENS japanese nakama jejepangan anime budaya jepang"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-emoji-smile" aria-hidden="true"></i> Budaya</span
+            >
+            <h3 class="card-title">JANAKA PENS (Japanese Nakama)</h3>
+            <p>
+              Komunitas budaya Jepang: event, workshop, kolaborasi, dan produksi
+              karya bertema jejepangan.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://linktr.ee/janakapens"
+                target="_blank"
+                rel="noopener"
+                >Linktree</a
+              >
+              <a
+                class="card-source"
+                href="https://www.facebook.com/groups/524775514257958/"
+                target="_blank"
+                rel="noopener"
+                >Facebook Group</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="komunitas"
+            data-search="Cinemascope PENS sinematografi film video est 2020"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-film" aria-hidden="true"></i> Film</span
+            >
+            <h3 class="card-title">UKM/Komunitas Cinemascope</h3>
+            <p>
+              Produksi video/film pendek, latihan sinematografi, dan kolaborasi
+              dokumentasi event.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://www.youtube.com/@cinemascopepens5393/videos"
+                target="_blank"
+                rel="noopener"
+                >YouTube</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="komunitas"
+            data-search="PENS Esports e-sports turnamen"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-controller" aria-hidden="true"></i> Esports</span
+            >
+            <h3 class="card-title">PENS Esports</h3>
+            <p>Komunitas esports: scrim, coaching, dan turnamen.</p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://www.youtube.com/@pensesports"
+                target="_blank"
+                rel="noopener"
+                >YouTube</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="komunitas"
+            data-search="Pemandu kampus guide"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-compass" aria-hidden="true"></i> Layanan</span
+            >
+            <h3 class="card-title">Pemandu / Volunteer Kampus</h3>
+            <p>
+              Tim pemandu kegiatan kampus (orientasi, acara institusi,
+              penerimaan tamu, dll.).
+            </p>
+            <ul class="card-list">
+              <li>
+                Biasanya dibuka lewat open recruitment / seleksi per event
+              </li>
+              <li>Melatih public speaking, etika, dan kerja tim</li>
+            </ul>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="komunitas"
+            data-search="Paskibraka PENS pasukan pengibar bendera"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-flag" aria-hidden="true"></i> Nasional</span
+            >
+            <h3 class="card-title">Paskibraka</h3>
+            <p>
+              Komunitas pengibar bendera: latihan baris-berbaris dan pengibaran
+              upacara.
+            </p>
+            <p class="muted" style="margin-top: 8px">
+              Catatan: info rekrutmen biasanya diumumkan menjelang agenda
+              upacara/peringatan.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRESTASI -->
+    <section class="page-section" id="prestasi">
+      <div class="section-container reveal">
+        <h2 class="section-title">
+          Program Prestasi, Riset Terapan, dan Kewirausahaan
+        </h2>
+        <p class="section-lead">
+          Jalur kegiatan untuk kamu yang ingin fokus ke kompetisi, karya, dan
+          pengembangan produk—baik tingkat nasional maupun internasional. Ini
+          biasanya dikoordinasi lewat unit kerja kemahasiswaan.
+        </p>
+
+        <h3 class="section-subtitle">Penalaran</h3>
+        <div class="card-grid">
+          <article
+            class="content-card activity-card"
+            data-type="prestasi"
+            data-search="GEMASTIK kompetisi TIK nasional"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-cup-hot" aria-hidden="true"></i> Penalaran</span
+            >
+            <h3 class="card-title">GEMASTIK</h3>
+            <p>
+              Kompetisi bidang TIK (pengembangan aplikasi, keamanan, data,
+              UI/UX, dsb.).
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/gemastik/"
+                target="_blank"
+                rel="noopener"
+                >Info</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="prestasi"
+            data-search="PKM Program Kreativitas Mahasiswa proposal"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-journal-text" aria-hidden="true"></i>
+              Penalaran</span
+            >
+            <h3 class="card-title">PKM</h3>
+            <p>
+              Pembinaan & pendampingan proposal Program Kreativitas Mahasiswa
+              (beragam skema).
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/pkm/"
+                target="_blank"
+                rel="noopener"
+                >Info</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="prestasi"
+            data-search="NPEO National Polytechnic English Olympiad"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-translate" aria-hidden="true"></i>
+              Penalaran</span
+            >
+            <h3 class="card-title">NPEO</h3>
+            <p>Ajang olimpiade/kompetisi bahasa Inggris tingkat politeknik.</p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/npeo/"
+                target="_blank"
+                rel="noopener"
+                >Info</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="prestasi"
+            data-search="Pilmapres pemilihan mahasiswa berprestasi"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-award" aria-hidden="true"></i> Penalaran</span
+            >
+            <h3 class="card-title">Pilmapres</h3>
+            <p>
+              Pembinaan pemilihan mahasiswa berprestasi (portofolio, karya,
+              capaian).
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/pilmapres/"
+                target="_blank"
+                rel="noopener"
+                >Info</a
+              >
+            </div>
+          </article>
+        </div>
+
+        <h3 class="section-subtitle">Kreativitas & Riset Terapan</h3>
+        <div class="card-grid">
+          <article
+            class="content-card activity-card"
+            data-type="prestasi"
+            data-search="Robotika kontes robot"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-robot" aria-hidden="true"></i> Kreatif</span
+            >
+            <h3 class="card-title">Robotika</h3>
+            <p>Tim/aktivitas robotika untuk riset terapan dan kompetisi.</p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/robotika/"
+                target="_blank"
+                rel="noopener"
+                >Info</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="prestasi"
+            data-search="Kapal Cepat tak berawak maritime"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-water" aria-hidden="true"></i> Kreatif</span
+            >
+            <h3 class="card-title">Kapal Cepat</h3>
+            <p>
+              Pengembangan teknologi maritim/kapal cepat (kompetisi/riset
+              terapan).
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/kapal-cepat/"
+                target="_blank"
+                rel="noopener"
+                >Info</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="prestasi"
+            data-search="Dirgantara roket drone KRTI komurindo"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-airplane" aria-hidden="true"></i> Kreatif</span
+            >
+            <h3 class="card-title">Dirgantara</h3>
+            <p>
+              Aktivitas bidang dirgantara (drone/roket) untuk kompetisi dan
+              pengembangan teknologi.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/dirgantara/"
+                target="_blank"
+                rel="noopener"
+                >Info</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="prestasi"
+            data-search="Mobil Hemat Energi KMHE"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-car-front" aria-hidden="true"></i> Kreatif</span
+            >
+            <h3 class="card-title">Mobil Hemat Energi</h3>
+            <p>
+              Pengembangan kendaraan hemat energi untuk kompetisi dan riset
+              terapan.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/mobil-hemat-energi/"
+                target="_blank"
+                rel="noopener"
+                >Info</a
+              >
+            </div>
+          </article>
+        </div>
+
+        <h3 class="section-subtitle">Kewirausahaan</h3>
+        <div class="card-grid">
+          <article
+            class="content-card activity-card"
+            data-type="prestasi"
+            data-search="KMI Expo kewirausahaan mahasiswa"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-shop" aria-hidden="true"></i> Wirausaha</span
+            >
+            <h3 class="card-title">Expo KMI</h3>
+            <p>
+              Ajang kewirausahaan mahasiswa (pameran, pitching, dan jejaring).
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/expo-kmi/"
+                target="_blank"
+                rel="noopener"
+                >Info</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="prestasi"
+            data-search="PMW program mahasiswa wirausaha pendanaan"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-cash-coin" aria-hidden="true"></i>
+              Wirausaha</span
+            >
+            <h3 class="card-title">PMW</h3>
+            <p>
+              Program Mahasiswa Wirausaha: pembinaan ide bisnis, pendanaan, dan
+              pendampingan.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/pmw/"
+                target="_blank"
+                rel="noopener"
+                >Info</a
+              >
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENT -->
+    <section class="page-section" id="event">
+      <div class="section-container reveal">
+        <h2 class="section-title">Event & Kepanitiaan Kampus</h2>
+        <p class="section-lead">
+          Kalau kamu ingin nambah relasi dan pengalaman organisasi, ikut
+          kepanitiaan event kampus adalah cara cepat. Biasanya open
+          volunteer/committee diumumkan lewat BEM/HIMA/UKM atau akun resmi
+          event.
+        </p>
+
+        <div class="card-grid">
+          <article
+            class="content-card activity-card"
+            data-type="event"
+            data-search="PKKMB Technogear orientasi mahasiswa baru"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-lightning-charge" aria-hidden="true"></i>
+              PKKMB</span
+            >
+            <h3 class="card-title">PKKMB x Technogear</h3>
+            <p>
+              Kegiatan orientasi mahasiswa baru (informasi & penugasan biasanya
+              disediakan via kanal resmi).
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://linktr.ee/technogear.pens2025"
+                target="_blank"
+                rel="noopener"
+                >Linktree</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="event"
+            data-search="MBEX Minat Bakat Expo UKM booth open recruitment"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-collection" aria-hidden="true"></i> Expo</span
+            >
+            <h3 class="card-title">MBEX (Minat Bakat Expo)</h3>
+            <p>
+              Pameran UKM/komunitas untuk mengenal kegiatan dan ikut open
+              recruitment (biasanya di awal tahun ajaran).
+            </p>
+            <ul class="card-list">
+              <li>Tempat paling gampang cari UKM/komunitas yang cocok</li>
+              <li>Sering bareng rangkaian PKKMB / awal semester</li>
+            </ul>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="event"
+            data-search="PENSCOMP lomba olahraga seni antar HIMA"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-trophy-fill" aria-hidden="true"></i>
+              Kompetisi</span
+            >
+            <h3 class="card-title">PENSCOMP</h3>
+            <p>
+              Kompetisi olahraga & seni antar himpunan/mahasiswa yang
+              dikoordinasi LMB.
+            </p>
+            <div class="card-sources">
+              <a
+                class="card-source"
+                href="https://kemahasiswaan.pens.ac.id/lmb/"
+                target="_blank"
+                rel="noopener"
+                >Info (LMB)</a
+              >
+            </div>
+          </article>
+
+          <article
+            class="content-card activity-card"
+            data-type="event"
+            data-search="Seminar workshop lomba internal prodi"
+          >
+            <span class="card-badge"
+              ><i class="bi bi-megaphone" aria-hidden="true"></i> Prodi</span
+            >
+            <h3 class="card-title">Event Prodi & HIMA</h3>
+            <p>
+              Tiap prodi biasanya punya agenda rutin: seminar, workshop, lomba
+              internal, dan kunjungan industri. Pantau website/IG HIMA kamu.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARA GABUNG -->
+    <section class="page-section" id="gabung">
+      <div class="section-container reveal">
+        <h2 class="section-title">Cara Bergabung</h2>
+        <div class="card-grid">
+          <div
+            class="content-card activity-card"
+            data-type="event"
+            data-search="cara gabung tips join organisasi UKM komunitas"
+          >
+            <h3 class="card-title">
+              <i class="bi bi-check2-circle" aria-hidden="true"></i> Langkah
+              cepat
+            </h3>
+            <ol class="card-list">
+              <li>
+                Mulai dari <b>MBEX</b> / expo UKM, lalu shortlist 2–3 pilihan.
+              </li>
+              <li>
+                Cek kanal resmi: website Kemahasiswaan, IG/Linktree UKM/HIMA,
+                dan info BEM.
+              </li>
+              <li>
+                Ikuti <b>Open Recruitment</b> (form + seleksi) atau datang ke
+                latihan/meet-up perkenalan.
+              </li>
+              <li>
+                Pilih 1 kegiatan “utama” + 1 kegiatan “santai” biar balance.
+              </li>
+              <li>
+                Kalau suka kompetisi: masuk
+                <b>Program Prestasi</b> (PKM/GEMASTIK/dll.) sejak awal.
+              </li>
+            </ol>
+            <p class="muted" style="margin-top: 10px">
+              Tips: aktif organisasi itu bagus, tapi tetap jaga IPK, kesehatan,
+              dan waktu istirahat ya.
+            </p>
+          </div>
+
+          <div
+            class="content-card activity-card"
+            data-type="organisasi"
+            data-search="sumber resmi kemahasiswaan PENS"
+          >
+            <h3 class="card-title">
+              <i class="bi bi-link-45deg" aria-hidden="true"></i> Sumber resmi
+            </h3>
+            <p>
+              Kalau kamu butuh daftar paling aman dan update, rujuk kanal resmi
+              berikut:
+            </p>
+            <ul class="card-list">
+              <li>
+                <a
+                  href="https://kemahasiswaan.pens.ac.id/"
+                  target="_blank"
+                  rel="noopener"
+                  >Kemahasiswaan PENS</a
+                >
+                (Ormawa, UKM, Unit Kerja)
+              </li>
+              <li>
+                <a href="https://pens.ac.id/" target="_blank" rel="noopener"
+                  >Website PENS</a
+                >
+                (berita & pengumuman)
+              </li>
+              <li>
+                Akun resmi event (Technogear/MBEX) & akun masing-masing UKM/HIMA
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer" id="contact">
+      <div class="section-container footer-grid">
+        <div class="footer-col footer-brand">
+          <h3>PENS</h3>
+          <p class="footer-desc">
+            Politeknik Elektronika Negeri Surabaya (PENS) adalah kampus vokasi
+            berbasis teknologi yang berfokus pada pengembangan talenta dan
+            inovasi.
+          </p>
+          <p class="footer-meta">
+            <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+            <span>Jl. Raya ITS, Keputih, Sukolilo, Surabaya 60111</span>
+          </p>
+
+          <div class="footer-pills">
+            <a
+              class="footer-pill"
+              href="https://pens.ac.id"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="bi bi-globe2" aria-hidden="true"></i> Website Resmi
+            </a>
+            <a
+              class="footer-pill"
+              href="https://pmb.pens.ac.id"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="bi bi-mortarboard-fill" aria-hidden="true"></i> PMB PENS
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigasi</h4>
+          <ul>
+            <li><a href="index.html#home">Beranda</a></li>
+            <li><a href="index.html#about">Tentang</a></li>
+            <li><a href="index.html#program">Departemen</a></li>
+            <li>
+              <a href="index.html#jalur-pendaftaran">Jalur Pendaftaran</a>
+            </li>
+            <li><a href="index.html#gallery">Galeri</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Tautan Penting</h4>
+          <ul>
+            <li>
+              <a href="https://pmb.pens.ac.id" target="_blank" rel="noopener"
+                >Info & Pengumuman PMB</a
+              >
+            </li>
+            <li>
+              <a href="https://pens.ac.id" target="_blank" rel="noopener"
+                >Berita & Update Kampus</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://snpmb.bppp.kemdikbud.go.id/"
+                target="_blank"
+                rel="noopener"
+                >Portal Resmi SNPMB</a
+              >
+            </li>
+          </ul>
+
+          <div class="footer-help">
+            <h4 class="footer-help__title">Butuh bantuan?</h4>
+            <p class="footer-help__text">
+              Klik ikon kontak di kanan bawah untuk menghubungi contact person &
+              grup SUFI.
+            </p>
+            <a
+              class="footer-pill footer-pill--ghost"
+              href="#!"
+              data-open-contact
+            >
+              <i class="bi bi-chat-dots-fill" aria-hidden="true"></i> Buka
+              Kontak
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="section-container footer-bottom-inner">
+          <small>©2026 SUFI PENS 25. Semua Hak Dilindungi.</small>
+          <small class="footer-bottom-links"
+            ><a href="index.html#home">Kembali ke atas</a></small
+          >
+        </div>
+      </div>
+    </footer>
+    <div class="contact-fab" id="contactFabWrap">
+      <button
+        class="contact-fab__btn"
+        id="contactFab"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="contactPanel"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Kontak pertanyaan lebih lanjut</span>
+        <i class="bi bi-chat-dots-fill" aria-hidden="true"></i>
+      </button>
+
+      <div
+        class="contact-panel"
+        id="contactPanel"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-label="Kontak pertanyaan lebih lanjut"
+      >
+        <div class="contact-panel__header">
+          <div>
+            <div class="contact-panel__title">Kontak</div>
+            <div class="contact-panel__subtitle">Contact Person</div>
+          </div>
+
+          <button
+            class="contact-panel__close"
+            id="contactPanelClose"
+            type="button"
+            aria-label="Tutup"
+          >
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="contact-panel__body">
+          <a
+            class="contact-link contact-link--muted"
+            target="_blank"
+            rel="noopener"
+            href="https://padlet.com/fryola15/SUFI_PENS_2025"
+            data-contact-person="4"
+          >
+            <span class="contact-link__icon" aria-hidden="true"
+              ><i class="bi bi-person-lines-fill"></i
+            ></span>
+            <span class="contact-link__text">
+              <span class="contact-link__label">FAQ & Tanya Jawab</span>
+              <span class="contact-link__meta"></span>
+            </span>
+          </a>
+
+          <div class="contact-sep" role="separator" aria-hidden="true"></div>
+
+          <a
+            class="contact-link contact-link--group"
+            target="_blank"
+            rel="noopener"
+            href="https://wa.me/"
+            data-sufi-group
+          >
+            <span class="contact-link__icon" aria-hidden="true"
+              ><i class="bi bi-people-fill"></i
+            ></span>
+            <span class="contact-link__text">
+              <span class="contact-link__label">Grup SUFI</span>
+              <span class="contact-link__meta"></span>
+            </span>
+            <span class="contact-link__arrow" aria-hidden="true"
+              ><i class="bi bi-box-arrow-up-right"></i
+            ></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Filter & search untuk kartu kegiatan (tanpa mengubah script.js utama)
+      (function () {
+        const searchInput = document.getElementById("activitySearch");
+        const filterButtons = document.querySelectorAll("[data-filter]");
+        const cards = Array.from(document.querySelectorAll(".activity-card"));
+
+        let activeFilter = "all";
+
+        const norm = (s) => (s || "").toLowerCase().trim();
+
+        function applyFilter() {
+          const q = norm(searchInput.value);
+          cards.forEach((card) => {
+            const t = card.dataset.type || "";
+            const search = norm(card.dataset.search || "");
+            const content = norm(card.textContent || "");
+            const matchType = activeFilter === "all" || t === activeFilter;
+            const matchQuery = !q || search.includes(q) || content.includes(q);
+            card.hidden = !(matchType && matchQuery);
+          });
+        }
+
+        filterButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            filterButtons.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            activeFilter = btn.dataset.filter || "all";
+            applyFilter();
+          });
+        });
+
+        searchInput.addEventListener("input", applyFilter);
+        applyFilter();
+      })();
+    </script>
+  </body>
+</html>

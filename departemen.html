@@ -1,0 +1,2163 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Departemen - PENS</title>
+    <meta
+      name="description"
+      content="Daftar departemen dan program studi (prodi) di PENS beserta tautan resmi visi/misi dan kurikulum."
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <script defer src="script.js"></script>
+
+    <style id="departemen-extra-css">
+      /* Tambahan CSS khusus departemen.html (dipindahkan dari style.css) */
+      /* ACCORDION (modern + smooth) */
+      .accordion {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .acc-item {
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid rgba(15, 47, 79, 0.1);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.94),
+          rgba(255, 255, 255, 0.86)
+        );
+        box-shadow: 0 14px 34px rgba(2, 12, 27, 0.08);
+      }
+
+      .acc-trigger {
+        width: 100%;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 16px 16px;
+        text-align: left;
+      }
+
+      .acc-trigger:hover {
+        background: rgba(15, 47, 79, 0.04);
+      }
+
+      .acc-trigger:focus-visible {
+        outline: 3px solid rgba(240, 202, 20, 0.55);
+        outline-offset: 2px;
+      }
+
+      .acc-left {
+        display: grid;
+        gap: 3px;
+      }
+
+      .acc-kicker {
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        color: rgba(15, 47, 79, 0.65);
+      }
+
+      .acc-title {
+        font-size: 16px;
+        font-weight: 950;
+        color: #0f2f4f;
+        line-height: 1.2;
+      }
+
+      .acc-right {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+
+      .acc-chip {
+        font-size: 12px;
+        font-weight: 850;
+        padding: 6px 10px;
+        border-radius: 999px;
+        color: #0f2f4f;
+        background: rgba(240, 202, 20, 0.24);
+        border: 1px solid rgba(240, 202, 20, 0.35);
+      }
+
+      .acc-icon {
+        transition: transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        color: rgba(15, 47, 79, 0.85);
+      }
+
+      .acc-item.is-open .acc-icon {
+        transform: rotate(180deg);
+      }
+
+      .acc-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        transform: translateY(-4px);
+        pointer-events: none;
+        transition: grid-template-rows 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+          opacity 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
+          transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .acc-item.is-open .acc-panel {
+        grid-template-rows: 1fr;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      .acc-inner {
+        overflow: hidden; /* penting untuk animasi grid rows */
+        padding: 0 16px 16px;
+      }
+
+      .joss-figure {
+        margin: 0;
+      }
+
+      .joss-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 14px;
+        border: 1px solid rgba(15, 47, 79, 0.1);
+      }
+
+      .muted {
+        margin: 10px 2px 0;
+        color: rgba(16, 42, 67, 0.7);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .pill-soft {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: rgba(15, 47, 79, 0.06);
+        border: 1px solid rgba(15, 47, 79, 0.1);
+        color: rgba(15, 47, 79, 0.88);
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .vm-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .vm-block {
+        border-radius: 14px;
+        padding: 12px 12px;
+        background: rgba(15, 47, 79, 0.03);
+        border: 1px solid rgba(15, 47, 79, 0.08);
+      }
+
+      .vm-title {
+        margin: 0 0 8px;
+        font-size: 14px;
+        font-weight: 950;
+        color: #0f2f4f;
+      }
+
+      .vm-vision {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.75;
+        color: rgba(16, 42, 67, 0.9);
+      }
+
+      .vm-list {
+        margin: 0;
+        padding-left: 18px;
+        color: rgba(16, 42, 67, 0.88);
+        line-height: 1.8;
+      }
+
+      .vm-list li + li {
+        margin-top: 8px;
+      }
+
+      .note {
+        margin: 12px 2px 0;
+        font-size: 13px;
+        color: rgba(16, 42, 67, 0.65);
+      }
+
+      @media (min-width: 860px) {
+        .vm-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        .acc-icon,
+        .acc-panel,
+        .reveal {
+          transition: none !important;
+        }
+      }
+
+      /* =========================
+   Departemen di PENS (UI polish)
+   ========================= */
+      .card-grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      @media (max-width: 1100px) {
+        .card-grid-4 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 640px) {
+        .card-grid-4 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .content-card {
+        display: flex;
+        flex-direction: column;
+      }
+      .content-card p {
+        line-height: 1.6;
+      }
+      .card-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .card-badge i {
+        font-size: 14px;
+        line-height: 1;
+      }
+
+      .card-source {
+        margin-top: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        padding: 10px 12px;
+        border-radius: 999px;
+        background: rgba(15, 53, 92, 0.06);
+        border: 1px solid rgba(15, 53, 92, 0.18);
+        color: var(--pens-blue);
+        font-weight: 900;
+        text-decoration: none;
+        transition: transform 180ms ease, background 180ms ease,
+          border-color 180ms ease;
+      }
+      .card-source:hover {
+        transform: translateY(-1px);
+        background: rgba(15, 53, 92, 0.09);
+        border-color: rgba(15, 53, 92, 0.26);
+        text-decoration: none;
+      }
+      .card-source i {
+        font-size: 14px;
+      }
+
+      /* Departemen page — prodi cards */
+      .prodi-grid {
+        margin-top: 14px;
+      }
+
+      .prodi-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .prodi-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .prodi-title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 950;
+        color: #0f2f4f;
+        line-height: 1.25;
+      }
+
+      .prodi-desc {
+        margin: 6px 0 0;
+        font-size: 13px;
+        color: rgba(16, 42, 67, 0.72);
+        line-height: 1.55;
+      }
+
+      .prodi-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .prodi-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: auto;
+      }
+
+      /* pill-soft as clickable buttons (for links only) */
+      a.pill-soft {
+        text-decoration: none;
+        transition: transform 0.15s ease, background 0.15s ease,
+          border-color 0.15s ease;
+      }
+
+      a.pill-soft:hover {
+        background: rgba(15, 47, 79, 0.1);
+        border-color: rgba(15, 47, 79, 0.16);
+        transform: translateY(-1px);
+      }
+
+      .pill-outline {
+        background: transparent;
+      }
+
+      .pill-outline:hover {
+        background: rgba(240, 202, 20, 0.14);
+        border-color: rgba(240, 202, 20, 0.35);
+      }
+
+      /* Reduce excessive paragraph spacing inside prodi cards */
+      .prodi-card p {
+        margin-top: 0;
+      }
+
+      @media (min-width: 860px) {
+        .prodi-title {
+          font-size: 17px;
+        }
+      }
+
+      /* Departemen page — prodi cards */
+      .prodi-grid {
+        margin-top: 14px;
+      }
+
+      .prodi-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .prodi-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .prodi-title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 950;
+        color: #0f2f4f;
+        line-height: 1.25;
+      }
+
+      .prodi-desc {
+        margin: 6px 0 0;
+        font-size: 13px;
+        color: rgba(16, 42, 67, 0.72);
+        line-height: 1.55;
+      }
+
+      .prodi-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .prodi-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: auto;
+      }
+
+      /* pill-soft as clickable buttons (for links only) */
+      a.pill-soft {
+        text-decoration: none;
+        transition: transform 0.15s ease, background 0.15s ease,
+          border-color 0.15s ease;
+      }
+
+      a.pill-soft:hover {
+        background: rgba(15, 47, 79, 0.1);
+        border-color: rgba(15, 47, 79, 0.16);
+        transform: translateY(-1px);
+      }
+
+      .pill-outline {
+        background: transparent;
+      }
+
+      .pill-outline:hover {
+        background: rgba(240, 202, 20, 0.14);
+        border-color: rgba(240, 202, 20, 0.35);
+      }
+
+      /* Reduce excessive paragraph spacing inside prodi cards */
+      .prodi-card p {
+        margin-top: 0;
+      }
+
+      @media (min-width: 860px) {
+        .prodi-title {
+          font-size: 17px;
+        }
+      }
+
+      /* Departemen page — prodi cards */
+      .prodi-grid {
+        margin-top: 14px;
+      }
+
+      .prodi-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .prodi-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .prodi-title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 950;
+        color: #0f2f4f;
+        line-height: 1.25;
+      }
+
+      .prodi-desc {
+        margin: 6px 0 0;
+        font-size: 13px;
+        color: rgba(16, 42, 67, 0.72);
+        line-height: 1.55;
+      }
+
+      .prodi-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .prodi-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: auto;
+      }
+
+      /* pill-soft as clickable buttons (for links only) */
+      a.pill-soft {
+        text-decoration: none;
+        transition: transform 0.15s ease, background 0.15s ease,
+          border-color 0.15s ease;
+      }
+
+      a.pill-soft:hover {
+        background: rgba(15, 47, 79, 0.1);
+        border-color: rgba(15, 47, 79, 0.16);
+        transform: translateY(-1px);
+      }
+
+      .pill-outline {
+        background: transparent;
+      }
+
+      .pill-outline:hover {
+        background: rgba(240, 202, 20, 0.14);
+        border-color: rgba(240, 202, 20, 0.35);
+      }
+
+      /* Reduce excessive paragraph spacing inside prodi cards */
+      .prodi-card p {
+        margin-top: 0;
+      }
+
+      @media (min-width: 860px) {
+        .prodi-title {
+          font-size: 17px;
+        }
+      }
+
+      /* Departemen page — prodi cards */
+      .prodi-grid {
+        margin-top: 14px;
+      }
+
+      .prodi-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .prodi-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .prodi-title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 950;
+        color: #0f2f4f;
+        line-height: 1.25;
+      }
+
+      .prodi-desc {
+        margin: 6px 0 0;
+        font-size: 13px;
+        color: rgba(16, 42, 67, 0.72);
+        line-height: 1.55;
+      }
+
+      .prodi-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .prodi-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: auto;
+      }
+
+      /* pill-soft as clickable buttons (for links only) */
+      a.pill-soft {
+        text-decoration: none;
+        transition: transform 0.15s ease, background 0.15s ease,
+          border-color 0.15s ease;
+      }
+
+      a.pill-soft:hover {
+        background: rgba(15, 47, 79, 0.1);
+        border-color: rgba(15, 47, 79, 0.16);
+        transform: translateY(-1px);
+      }
+
+      .pill-outline {
+        background: transparent;
+      }
+
+      .pill-outline:hover {
+        background: rgba(240, 202, 20, 0.14);
+        border-color: rgba(240, 202, 20, 0.35);
+      }
+
+      /* Reduce excessive paragraph spacing inside prodi cards */
+      .prodi-card p {
+        margin-top: 0;
+      }
+
+      @media (min-width: 860px) {
+        .prodi-title {
+          font-size: 17px;
+        }
+      }
+      .brand-logo {
+        display: block; /* ngilangin gap baseline */
+        height: 60px; /* pas untuk navbar */
+        width: auto; /* biar proporsional */
+        max-width: 220px; /* tetap ada batas */
+        object-fit: contain;
+      }
+
+      /* kalau mau lebih responsif di layar kecil */
+      @media (max-width: 1020px) {
+        .brand-logo {
+          height: 70px;
+          max-width: 180px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <header
+      class="navbar navbar-dark"
+      role="navigation"
+      aria-label="Navigasi utama PENS"
+    >
+      <div class="container">
+        <a class="brand" href="index.html#home" aria-label="Beranda PENS">
+          <img
+            src="https://raw.githubusercontent.com/dikaaaxyz/campusdesign/28a7c5d2991d49cb490698326f36f212ed20cd77/penss%20fix.png"
+            alt="logopens"
+            class="brand-logo"
+          />
+        </a>
+
+        <button
+          class="navbar-toggler"
+          id="navbarToggler"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          type="button"
+        >
+          <span class="sr-only">Buka / tutup menu</span>
+          <span class="toggler-icon"></span>
+        </button>
+
+        <nav
+          class="navbar-collapse"
+          id="navbarCollapse"
+          aria-label="Menu utama"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#home">Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="akademik.html">Akademik</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="departemen.html">Departemen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="riset.html">Riset</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="mahasiswa.html">Mahasiswa</a>
+            </li>
+          </ul>
+
+          <!-- Search (TIDAK DIHILANGKAN) -->
+          <form class="navbar-search" role="search">
+            <label class="sr-only" for="navbarSearch">Cari</label>
+            <input
+              id="navbarSearch"
+              type="search"
+              placeholder="Cari prodi, riset, nilai..."
+              autocomplete="off"
+            />
+            <button type="submit">Cari</button>
+          </form>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero-section" id="home">
+        <div class="hero-container reveal">
+          <h1 class="hero-title">Departemen &amp; Program Studi PENS</h1>
+          <p class="hero-subtitle">
+            Jelajahi 4 departemen utama PENS, lalu buka daftar program studi
+            (prodi) di tiap departemen. Semua tautan menuju website resmi PENS.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn-hero js-open-prodi" href="#program-studi"
+              >Lihat semua prodi</a
+            >
+            <a class="btn-hero btn-ghost" href="index.html#program"
+              >Kembali ke Beranda</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- DEPARTEMEN (mirip section "program" di index.html) -->
+      <section class="page-section page-section-alt" id="departemen">
+        <div class="section-container">
+          <h2 class="section-title reveal">Departemen di PENS</h2>
+          <p class="section-lead reveal">
+            PENS memiliki 4 departemen utama. Klik
+            <strong>Lihat selengkapnya</strong>
+            untuk membuka kumpulan prodi di departemen tersebut (format
+            accordion).
+          </p>
+
+          <div class="pill-row reveal" style="margin-top: 10px">
+            <a class="pill-soft js-open-prodi" href="#program-studi"
+              ><i class="bi bi-grid-3x3-gap-fill" aria-hidden="true"></i> Lihat
+              semua prodi</a
+            >
+          </div>
+
+          <div class="card-grid card-grid-4" style="margin-top: 16px">
+            <!-- DTE -->
+            <article class="content-card dept dte reveal">
+              <div class="card-badge">
+                <i class="bi bi-lightning-charge-fill" aria-hidden="true"></i
+                ><span>DTE</span>
+              </div>
+              <h3>Departemen Teknik Elektro</h3>
+              <p>
+                Berfokus pada rekayasa <strong>elektronika</strong>,
+                <strong>telekomunikasi</strong>, dan
+                <strong>elektro industri</strong> untuk menjawab kebutuhan
+                tenaga ahli di bidang teknologi terapan.
+              </p>
+              <ul class="card-list">
+                <li>Elektronika (D3 &amp; D4)</li>
+                <li>Telekomunikasi (D3 &amp; D4)</li>
+                <li>Elektro Industri (D3 &amp; D4)</li>
+                <li>PJJ Teknik Telekomunikasi (D4)</li>
+              </ul>
+
+              <div class="pill-row" style="margin-top: 12px">
+                <a
+                  class="pill-soft js-open-prodi"
+                  href="#program-studi"
+                  data-open-dept="dte"
+                  ><i
+                    class="bi bi-arrow-right-circle-fill"
+                    aria-hidden="true"
+                  ></i>
+                  Lihat selengkapnya</a
+                >
+              </div>
+
+              <a
+                class="card-source"
+                target="_blank"
+                rel="noopener"
+                href="https://www.pens.ac.id/departemen-teknik-elektro/"
+                >Sumber resmi
+                <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+              ></a>
+            </article>
+
+            <!-- DTIK -->
+            <article class="content-card dept dtik reveal">
+              <div class="card-badge">
+                <i class="bi bi-code-slash" aria-hidden="true"></i
+                ><span>DTIK</span>
+              </div>
+              <h3>Departemen Teknik Informatika dan Komputer</h3>
+              <p>
+                Mengembangkan teknologi informasi dan rekayasa komputer,
+                mencakup
+                <strong>informatika</strong>, <strong>komputer</strong>, serta
+                <strong>sains data terapan</strong>.
+              </p>
+              <ul class="card-list">
+                <li>Teknik Informatika (D3 &amp; D4)</li>
+                <li>Teknik Komputer (D4)</li>
+                <li>Teknologi Rekayasa Internet (D4)</li>
+                <li>Sains Data Terapan (D4)</li>
+                <li>PJJ &amp; PSDKU (Lamongan, Sumenep)</li>
+              </ul>
+
+              <div class="pill-row" style="margin-top: 12px">
+                <a
+                  class="pill-soft js-open-prodi"
+                  href="#program-studi"
+                  data-open-dept="dtik"
+                  ><i
+                    class="bi bi-arrow-right-circle-fill"
+                    aria-hidden="true"
+                  ></i>
+                  Lihat selengkapnya</a
+                >
+              </div>
+
+              <a
+                class="card-source"
+                target="_blank"
+                rel="noopener"
+                href="https://www.pens.ac.id/departemen-teknik-informatika-dan-komputer/"
+                >Sumber resmi
+                <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+              ></a>
+            </article>
+
+            <!-- DTME -->
+            <article class="content-card dept dtme reveal">
+              <div class="card-badge">
+                <i class="bi bi-gear-wide-connected" aria-hidden="true"></i
+                ><span>DTME</span>
+              </div>
+              <h3>Departemen Teknik Mekanika dan Energi</h3>
+              <p>
+                Berfokus pada integrasi sistem mekanik–elektrik–kontrol serta
+                rekayasa <strong>energi</strong>, untuk menghasilkan solusi
+                teknologi yang efisien dan berkelanjutan.
+              </p>
+              <ul class="card-list">
+                <li>Teknik Mekatronika (D4)</li>
+                <li>Sistem Pembangkit Energi (D4)</li>
+              </ul>
+
+              <div class="pill-row" style="margin-top: 12px">
+                <a
+                  class="pill-soft js-open-prodi"
+                  href="#program-studi"
+                  data-open-dept="dtme"
+                  ><i
+                    class="bi bi-arrow-right-circle-fill"
+                    aria-hidden="true"
+                  ></i>
+                  Lihat selengkapnya</a
+                >
+              </div>
+
+              <a
+                class="card-source"
+                target="_blank"
+                rel="noopener"
+                href="https://www.pens.ac.id/departemen-teknik-mekanika-energi/"
+                >Sumber resmi
+                <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+              ></a>
+            </article>
+
+            <!-- DTMK -->
+            <article class="content-card dept dtmk reveal">
+              <div class="card-badge">
+                <i class="bi bi-camera-reels-fill" aria-hidden="true"></i
+                ><span>DTMK</span>
+              </div>
+              <h3>Departemen Teknologi Multimedia Kreatif</h3>
+              <p>
+                Berfokus pada pengembangan
+                <strong>teknologi multimedia</strong> untuk industri kreatif,
+                termasuk <strong>game</strong> dan rekayasa multimedia.
+              </p>
+              <ul class="card-list">
+                <li>Multimedia &amp; Broadcasting (D3)</li>
+                <li>
+                  Multimedia &amp; Broadcasting (PSDKU Lamongan &amp; Sumenep)
+                </li>
+                <li>Teknologi Game (D4)</li>
+                <li>Teknologi Rekayasa Multimedia (D4)</li>
+              </ul>
+
+              <div class="pill-row" style="margin-top: 12px">
+                <a
+                  class="pill-soft js-open-prodi"
+                  href="#program-studi"
+                  data-open-dept="dtmk"
+                  ><i
+                    class="bi bi-arrow-right-circle-fill"
+                    aria-hidden="true"
+                  ></i>
+                  Lihat selengkapnya</a
+                >
+              </div>
+
+              <a
+                class="card-source"
+                target="_blank"
+                rel="noopener"
+                href="https://www.pens.ac.id/departemen-teknologi-multimedia-kreatif/"
+                >Sumber resmi
+                <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+              ></a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROGRAM STUDI (accordion) -->
+      <section class="page-section" id="program-studi">
+        <div class="section-container">
+          <h2 class="section-title reveal">Program Studi per Departemen</h2>
+          <p class="muted reveal" style="max-width: 980px">
+            Klik nama departemen untuk membuka daftar prodinya. Tombol
+            <strong>Lihat selengkapnya</strong> di kartu departemen akan
+            otomatis membuka accordion departemen yang dipilih.
+          </p>
+          <p class="note reveal" style="margin-top: 10px; max-width: 980px">
+            Catatan: Untuk beberapa prodi, halaman “Visi &amp; Misi” di website
+            resmi bisa berada pada menu yang berbeda (contoh: Elektronika
+            memakai “Visi Keilmuan Prodi”).
+          </p>
+
+          <div class="accordion" data-accordion="single">
+            <!-- DTE -->
+            <div class="acc-item" id="prodi-dte">
+              <button
+                class="acc-trigger"
+                id="acc-btn-dte"
+                type="button"
+                aria-controls="acc-panel-dte"
+                aria-expanded="false"
+              >
+                <span class="acc-left">
+                  <span class="acc-kicker">DTE</span>
+                  <span class="acc-title">Departemen Teknik Elektro</span>
+                </span>
+                <span class="acc-right">
+                  <svg
+                    class="acc-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 9l6 6 6-6"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2.4"
+                    ></path>
+                  </svg>
+                </span>
+              </button>
+
+              <div
+                class="acc-panel"
+                id="acc-panel-dte"
+                role="region"
+                aria-labelledby="acc-btn-dte"
+              >
+                <div class="acc-inner">
+                  <div class="pill-row" style="margin-top: 0">
+                    <a
+                      class="pill-soft"
+                      href="https://www.pens.ac.id/departemen-teknik-elektro/"
+                      target="_blank"
+                      rel="noopener"
+                      >Sumber resmi departemen
+                      <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+                    ></a>
+                  </div>
+
+                  <div class="card-grid prodi-grid">
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">Teknik Elektronika</h4>
+                          <p class="prodi-desc">
+                            Program D3 & D4. Visi/Misi di website prodi
+                            ditampilkan sebagai “Visi Keilmuan Prodi”.
+                          </p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D3</span>
+                          <span class="pill-soft">D4</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://elektronika.pens.ac.id/visi-keilmuan-prodi/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi (Keilmuan Prodi)</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://elektronika.pens.ac.id/kurikulum-d3-2022/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum D3 (2022)</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://elektronika.pens.ac.id/kurikulum-sarjana-terapan-2022/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum D4 (2022)</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://elektronika.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">Teknik Telekomunikasi</h4>
+                          <p class="prodi-desc">
+                            Program D3 & D4. Kurikulum berbeda per jenjang.
+                          </p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D3</span>
+                          <span class="pill-soft">D4</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://telekomunikasi.pens.ac.id/visi-misi-ahli-madya/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://telekomunikasi.pens.ac.id/kurikulum-d3-2022/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum D3 (2022)</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://telekomunikasi.pens.ac.id/kurikulum-sarjana-terapan-2022/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum D4 (2022)</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://telekomunikasi.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">Teknik Elektro Industri</h4>
+                          <p class="prodi-desc">
+                            Program D3 & D4. Kurikulum berbeda per jenjang.
+                          </p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D3</span>
+                          <span class="pill-soft">D4</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://elin.pens.ac.id/visi-misi-prodi-d3-tei/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://elin.pens.ac.id/kurikulum-prodi-d3-tei/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum D3</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://elin.pens.ac.id/kurikulum-sarjana-terapan-tei/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum D4</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://elin.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">PJJ Teknik Telekomunikasi</h4>
+                          <p class="prodi-desc">
+                            Sarjana Terapan (D4) – jalur Pendidikan Jarak Jauh
+                            (PJJ).
+                          </p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D4</span>
+                          <span class="pill-soft">PJJ</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://pjj.pens.ac.id/index.php/d4-teknik-telekomunikasi-pjj/visi-dan-misi-program-studi-d4-telkom-pjj/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://pjj.pens.ac.id/index.php/d4-teknik-telekomunikasi-pjj/kurikulum-d4-telkom-pjj/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://pjj.pens.ac.id/index.php/d4-teknik-telekomunikasi-pjj/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- DTIK -->
+            <div class="acc-item" id="prodi-dtik">
+              <button
+                class="acc-trigger"
+                id="acc-btn-dtik"
+                type="button"
+                aria-controls="acc-panel-dtik"
+                aria-expanded="false"
+              >
+                <span class="acc-left">
+                  <span class="acc-kicker">DTIK</span>
+                  <span class="acc-title"
+                    >Departemen Teknik Informatika dan Komputer</span
+                  >
+                </span>
+                <span class="acc-right">
+                  <svg
+                    class="acc-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 9l6 6 6-6"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2.4"
+                    ></path>
+                  </svg>
+                </span>
+              </button>
+
+              <div
+                class="acc-panel"
+                id="acc-panel-dtik"
+                role="region"
+                aria-labelledby="acc-btn-dtik"
+              >
+                <div class="acc-inner">
+                  <div class="pill-row" style="margin-top: 0">
+                    <a
+                      class="pill-soft"
+                      href="https://www.pens.ac.id/departemen-teknik-informatika-dan-komputer/"
+                      target="_blank"
+                      rel="noopener"
+                      >Sumber resmi departemen
+                      <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+                    ></a>
+                  </div>
+
+                  <div class="card-grid prodi-grid">
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">Teknik Informatika</h4>
+                          <p class="prodi-desc">
+                            Program D3 & D4. Kurikulum berbeda per jenjang.
+                          </p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D3</span>
+                          <span class="pill-soft">D4</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://it.pens.ac.id/visi-misi-d3/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://it.pens.ac.id/kurikulum-d3/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum D3</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://it.pens.ac.id/kurikulum-sarjana-terapan-teknik-informatika-2022/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum D4 (2022)</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://it.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">Teknik Komputer</h4>
+                          <p class="prodi-desc">Sarjana Terapan (D4).</p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D4</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://tekkom.pens.ac.id/visi-dan-misi/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://tekkom.pens.ac.id/kurikulum/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://tekkom.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">
+                            Teknologi Rekayasa Internet
+                          </h4>
+                          <p class="prodi-desc">Sarjana Terapan (D4).</p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D4</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://tri.pens.ac.id/visi-misi/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://tri.pens.ac.id/kurikulum/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://tri.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">Sains Data Terapan</h4>
+                          <p class="prodi-desc">Sarjana Terapan (D4).</p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D4</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://sainsdata.pens.ac.id/visi-misi-prodi/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://sainsdata.pens.ac.id/kurikulum-prodi/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://sainsdata.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">PJJ Teknik Informatika</h4>
+                          <p class="prodi-desc">
+                            Diploma 3 (D3) – jalur Pendidikan Jarak Jauh (PJJ).
+                          </p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D3</span>
+                          <span class="pill-soft">PJJ</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://pjj.pens.ac.id/index.php/d3-teknik-informatika-pjj/visi-dan-misi-program-studi-d3-ti-pjj/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://pjj.pens.ac.id/index.php/d3-teknik-informatika-pjj/kurikulum-d3-ti-pjj/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://pjj.pens.ac.id/index.php/d3-teknik-informatika-pjj/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">
+                            Teknik Informatika (PSDKU Lamongan)
+                          </h4>
+                          <p class="prodi-desc">
+                            Diploma 3 (D3) – penyelenggaraan di Kampus Lamongan.
+                            (Visi/Misi sama, kurikulum mengacu kurikulum D3 TI.)
+                          </p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D3</span>
+                          <span class="pill-soft">PSDKU Lamongan</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://it.pens.ac.id/visi-misi-d3/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://it.pens.ac.id/kurikulum-d3/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum D3</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://it.la.psdku.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">
+                            Teknik Informatika (PSDKU Sumenep)
+                          </h4>
+                          <p class="prodi-desc">
+                            Diploma 3 (D3) – penyelenggaraan di Kampus Sumenep.
+                            (Visi/Misi sama, kurikulum mengacu kurikulum D3 TI.)
+                          </p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D3</span>
+                          <span class="pill-soft">PSDKU Sumenep</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://it.pens.ac.id/visi-misi-d3/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://it.pens.ac.id/kurikulum-d3/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum D3</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://it.sm.psdku.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- DTME -->
+            <div class="acc-item" id="prodi-dtme">
+              <button
+                class="acc-trigger"
+                id="acc-btn-dtme"
+                type="button"
+                aria-controls="acc-panel-dtme"
+                aria-expanded="false"
+              >
+                <span class="acc-left">
+                  <span class="acc-kicker">DTME</span>
+                  <span class="acc-title"
+                    >Departemen Teknik Mekanika Energi</span
+                  >
+                </span>
+                <span class="acc-right">
+                  <svg
+                    class="acc-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 9l6 6 6-6"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2.4"
+                    ></path>
+                  </svg>
+                </span>
+              </button>
+
+              <div
+                class="acc-panel"
+                id="acc-panel-dtme"
+                role="region"
+                aria-labelledby="acc-btn-dtme"
+              >
+                <div class="acc-inner">
+                  <div class="pill-row" style="margin-top: 0">
+                    <a
+                      class="pill-soft"
+                      href="https://www.pens.ac.id/departemen-teknik-mekanika-energi/"
+                      target="_blank"
+                      rel="noopener"
+                      >Sumber resmi departemen
+                      <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+                    ></a>
+                  </div>
+
+                  <div class="card-grid prodi-grid">
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">Teknik Mekatronika</h4>
+                          <p class="prodi-desc">Sarjana Terapan (D4).</p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D4</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://mekatronika.pens.ac.id/visi-misi/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://mekatronika.pens.ac.id/kurikulum-mbkm-2022/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum (MBKM 2022)</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://mekatronika.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">Sistem Pembangkit Energi</h4>
+                          <p class="prodi-desc">Sarjana Terapan (D4).</p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D4</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://energi.pens.ac.id/visi-misi/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://energi.pens.ac.id/kurikulum/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://energi.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- DTMK -->
+            <div class="acc-item" id="prodi-dtmk">
+              <button
+                class="acc-trigger"
+                id="acc-btn-dtmk"
+                type="button"
+                aria-controls="acc-panel-dtmk"
+                aria-expanded="false"
+              >
+                <span class="acc-left">
+                  <span class="acc-kicker">DTMK</span>
+                  <span class="acc-title"
+                    >Departemen Teknologi Multimedia Kreatif</span
+                  >
+                </span>
+                <span class="acc-right">
+                  <svg
+                    class="acc-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 9l6 6 6-6"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2.4"
+                    ></path>
+                  </svg>
+                </span>
+              </button>
+
+              <div
+                class="acc-panel"
+                id="acc-panel-dtmk"
+                role="region"
+                aria-labelledby="acc-btn-dtmk"
+              >
+                <div class="acc-inner">
+                  <div class="pill-row" style="margin-top: 0">
+                    <a
+                      class="pill-soft"
+                      href="https://www.pens.ac.id/departemen-teknologi-multimedia-kreatif/"
+                      target="_blank"
+                      rel="noopener"
+                      >Sumber resmi departemen
+                      <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+                    ></a>
+                  </div>
+
+                  <div class="card-grid prodi-grid">
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">
+                            Teknologi Multimedia dan Broadcasting
+                          </h4>
+                          <p class="prodi-desc">Diploma 3 (D3).</p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D3</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://mmb.pens.ac.id/profil-mmb/"
+                          target="_blank"
+                          rel="noopener"
+                          >Profil / Visi / Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://mmb.pens.ac.id/kurikulum-prodi/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://mmb.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">
+                            Teknologi Multimedia dan Broadcasting (PSDKU
+                            Lamongan)
+                          </h4>
+                          <p class="prodi-desc">
+                            Diploma 3 (D3) – penyelenggaraan di Kampus Lamongan.
+                            (Visi/Misi sama, kurikulum mengacu kurikulum D3
+                            MMB.)
+                          </p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D3</span>
+                          <span class="pill-soft">PSDKU Lamongan</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://mmb.pens.ac.id/profil-mmb/"
+                          target="_blank"
+                          rel="noopener"
+                          >Profil / Visi / Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://mmb.pens.ac.id/kurikulum-prodi/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://mb.la.psdku.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">
+                            Teknologi Multimedia dan Broadcasting (PSDKU
+                            Sumenep)
+                          </h4>
+                          <p class="prodi-desc">
+                            Diploma 3 (D3) – penyelenggaraan di Kampus Sumenep.
+                            (Visi/Misi sama, kurikulum mengacu kurikulum D3
+                            MMB.)
+                          </p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D3</span>
+                          <span class="pill-soft">PSDKU Sumenep</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://mmb.pens.ac.id/profil-mmb/"
+                          target="_blank"
+                          rel="noopener"
+                          >Profil / Visi / Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://mmb.pens.ac.id/kurikulum-prodi/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://mb.sm.psdku.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">Teknologi Game</h4>
+                          <p class="prodi-desc">Sarjana Terapan (D4).</p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D4</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://gametech.pens.ac.id/visi-misi/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://gametech.pens.ac.id/kurikulum-2022/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum (2022)</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://gametech.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+
+                    <article class="content-card prodi-card reveal">
+                      <div class="prodi-head">
+                        <div>
+                          <h4 class="prodi-title">
+                            Teknologi Rekayasa Multimedia
+                          </h4>
+                          <p class="prodi-desc">Sarjana Terapan (D4).</p>
+                        </div>
+                        <div class="prodi-tags">
+                          <span class="pill-soft">D4</span>
+                        </div>
+                      </div>
+
+                      <div class="prodi-actions">
+                        <a
+                          class="pill-soft"
+                          href="https://trm.pens.ac.id/visi-misi/"
+                          target="_blank"
+                          rel="noopener"
+                          >Visi & Misi</a
+                        >
+                        <a
+                          class="pill-soft"
+                          href="https://trm.pens.ac.id/kurikulum/"
+                          target="_blank"
+                          rel="noopener"
+                          >Kurikulum</a
+                        >
+                        <a
+                          class="pill-soft pill-outline"
+                          href="https://trm.pens.ac.id/"
+                          target="_blank"
+                          rel="noopener"
+                          >Website Prodi
+                          <i
+                            class="bi bi-box-arrow-up-right"
+                            aria-hidden="true"
+                          ></i
+                        ></a>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer" id="contact">
+      <div class="section-container footer-grid">
+        <div class="footer-col footer-brand">
+          <h3>PENS</h3>
+          <p class="footer-desc">
+            Politeknik Elektronika Negeri Surabaya (PENS) adalah kampus vokasi
+            berbasis teknologi yang berfokus pada pengembangan talenta dan
+            inovasi.
+          </p>
+          <p class="footer-meta">
+            <i aria-hidden="true" class="bi bi-geo-alt-fill"></i>
+            <span>Jl. Raya ITS, Keputih, Sukolilo, Surabaya 60111</span>
+          </p>
+          <div class="footer-pills">
+            <a
+              class="footer-pill"
+              href="https://www.pens.ac.id"
+              rel="noopener"
+              target="_blank"
+            >
+              <i aria-hidden="true" class="bi bi-globe2"></i> Website Resmi
+            </a>
+            <a
+              class="footer-pill"
+              href="https://pmb.pens.ac.id"
+              rel="noopener"
+              target="_blank"
+            >
+              <i aria-hidden="true" class="bi bi-mortarboard-fill"></i> PMB PENS
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigasi</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#home">Beranda</a></li>
+            <li><a href="#departemen">Departemen</a></li>
+            <li><a href="#program-studi">Program Studi</a></li>
+            <li><a href="akademik.html">Akademik</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Sumber Resmi</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="https://www.pens.ac.id" target="_blank" rel="noopener"
+                >pens.ac.id</a
+              >
+            </li>
+            <li>
+              <a href="https://pmb.pens.ac.id" target="_blank" rel="noopener"
+                >pmb.pens.ac.id</a
+              >
+            </li>
+            <li>
+              <a href="https://it.pens.ac.id" target="_blank" rel="noopener"
+                >Website prodi (contoh: it.pens.ac.id)</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="mailto:info@pens.ac.id">info@pens.ac.id</a>
+            </li>
+            <li>
+              <a href="tel:+62315947280">+62 31 594 7280</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-container footer-bottom">
+        <p>© 2026 Politeknik Elektronika Negeri Surabaya (PENS)</p>
+      </div>
+    </footer>
+
+    <button
+      aria-label="Kembali ke atas"
+      class="back-to-top"
+      id="backToTop"
+      type="button"
+    >
+      <i aria-hidden="true" class="bi bi-arrow-up"></i>
+    </button>
+    <div class="contact-fab" id="contactFabWrap">
+      <button
+        class="contact-fab__btn"
+        id="contactFab"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="contactPanel"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Kontak pertanyaan lebih lanjut</span>
+        <i class="bi bi-chat-dots-fill" aria-hidden="true"></i>
+      </button>
+
+      <div
+        class="contact-panel"
+        id="contactPanel"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-label="Kontak pertanyaan lebih lanjut"
+      >
+        <div class="contact-panel__header">
+          <div>
+            <div class="contact-panel__title">Kontak</div>
+            <div class="contact-panel__subtitle">Contact Person</div>
+          </div>
+
+          <button
+            class="contact-panel__close"
+            id="contactPanelClose"
+            type="button"
+            aria-label="Tutup"
+          >
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="contact-panel__body">
+          <a
+            class="contact-link contact-link--muted"
+            target="_blank"
+            rel="noopener"
+            href="https://padlet.com/fryola15/SUFI_PENS_2025"
+            data-contact-person="4"
+          >
+            <span class="contact-link__icon" aria-hidden="true"
+              ><i class="bi bi-person-lines-fill"></i
+            ></span>
+            <span class="contact-link__text">
+              <span class="contact-link__label">FAQ & Tanya Jawab</span>
+              <span class="contact-link__meta"></span>
+            </span>
+          </a>
+
+          <div class="contact-sep" role="separator" aria-hidden="true"></div>
+
+          <a
+            class="contact-link contact-link--group"
+            target="_blank"
+            rel="noopener"
+            href="https://wa.me/"
+            data-sufi-group
+          >
+            <span class="contact-link__icon" aria-hidden="true"
+              ><i class="bi bi-people-fill"></i
+            ></span>
+            <span class="contact-link__text">
+              <span class="contact-link__label">Grup SUFI</span>
+              <span class="contact-link__meta"></span>
+            </span>
+            <span class="contact-link__arrow" aria-hidden="true"
+              ><i class="bi bi-box-arrow-up-right"></i
+            ></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Helper: buka accordion sesuai tombol "lihat selengkapnya" -->
+    <script>
+      (function () {
+        const openDept = (deptCode) => {
+          if (!deptCode) return;
+          const targetItem = document.getElementById("prodi-" + deptCode);
+          if (!targetItem) return;
+
+          const targetBtn = targetItem.querySelector(".acc-trigger");
+          const section = document.getElementById("program-studi");
+          if (section) {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+
+          // buka dengan memicu click (biar aria-expanded ikut ke-set lewat script.js)
+          if (targetBtn && !targetItem.classList.contains("is-open")) {
+            // kasih sedikit jeda agar scroll terasa natural
+            setTimeout(() => targetBtn.click(), 250);
+          }
+        };
+
+        document.querySelectorAll("[data-open-dept]").forEach((el) => {
+          el.addEventListener("click", (e) => {
+            // biar scroll tetap jalan, tapi kita tetap kendalikan open dept
+            const deptCode = el.getAttribute("data-open-dept");
+            if (!deptCode) return;
+            e.preventDefault();
+            openDept(deptCode);
+          });
+        });
+
+        // Support hash langsung: #prodi-dte / #prodi-dtik / dst.
+        window.addEventListener("load", () => {
+          const hash = (location.hash || "").replace("#", "");
+          if (hash.startsWith("prodi-")) {
+            openDept(hash.replace("prodi-", ""));
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
